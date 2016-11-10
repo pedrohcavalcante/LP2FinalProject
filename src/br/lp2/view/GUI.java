@@ -3,12 +3,18 @@ package br.lp2.view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.*;
 
 import br.lp2.player.*;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import br.lp2.main.*;
 
 @SuppressWarnings({ "serial", "unused" })
@@ -17,7 +23,8 @@ public class GUI extends JFrame{
 	
 	JFileChooser jfile;
 	Component parent = null;
-	
+	private Player ply;
+	Music msc = new Music();
 	
 	// Dimensoes da tela principal
 	private int ALTURA = 300;
@@ -100,7 +107,13 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				jfile.showOpenDialog(parent);
-				p1Player = new PlayerFile(jfile.getSelectedFile());		
+				p1Player = new PlayerFile(jfile.getSelectedFile());	
+				try {
+					msc.run(jfile.getSelectedFile());
+				} catch (FileNotFoundException | JavaLayerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		playPause.addActionListener(new ActionListener() {
@@ -108,7 +121,6 @@ public class GUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				p1Player.tocar(jfile.getSelectedFile());
 				p1Player.start();
 
 			}
@@ -123,4 +135,10 @@ public class GUI extends JFrame{
 		});
 	}
 	
+	class Music extends Thread {
+		public void run(File file_t) throws FileNotFoundException, JavaLayerException{
+			FileInputStream input = new FileInputStream(file_t);
+			ply = new Player(input);
+		}
+	}
 }
