@@ -13,7 +13,9 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		
-		GUI music = new GUI();
+		// GUI music = new GUI();
+		CadastroUsuario cadastroUsuario = new CadastroUsuario();
+		cadastroUsuario.setVisible(true);
 	}
 
 }
