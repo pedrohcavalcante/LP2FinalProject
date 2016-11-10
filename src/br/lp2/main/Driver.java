@@ -12,13 +12,7 @@ public class Driver {
 	static Component parent = null;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		try{
-			chooser.showOpenDialog(parent);
-		}catch (NullPointerException e ){
-			System.out.println("erro1");
-		}
-		File caminho = chooser.getSelectedFile();
-		PlayerFile music = new PlayerFile(caminho);
+		GUI music = new GUI();
 	}
 
 }
