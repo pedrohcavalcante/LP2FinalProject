@@ -10,8 +10,9 @@ import br.lp2.view.*;
 public class Driver {
 	final static JFileChooser chooser = new JFileChooser();
 	static Component parent = null;
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		GUI music = new GUI();
 	}
 
