@@ -21,7 +21,7 @@ public class Login extends JFrame {
 	
 	// Campo responsaovel por armazenar o login atual
 	private Usuario usuarioAtual;
-	
+
 	// Labels
 	private JLabel labelUsuario = new JLabel("Usuario");
 	private JLabel labelSenha = new JLabel("Senha");
@@ -84,8 +84,6 @@ public class Login extends JFrame {
 							logou = true;
 							
 							setVisible(false);
-							
-							JOptionPane.showMessageDialog(null, "Login feito com sucesso");
 						}
 						else {							
 							JOptionPane.showMessageDialog(null, "Senha incorreta");
@@ -99,5 +97,20 @@ public class Login extends JFrame {
 				}
 			}
 		});
+		cancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+	
+	// Metodos
+	public Usuario getUsuarioAtual() {
+		return usuarioAtual;
+	}
+	public void setUsuarioAtual(Usuario usuarioAtual) {
+		this.usuarioAtual = usuarioAtual;
 	}
 }

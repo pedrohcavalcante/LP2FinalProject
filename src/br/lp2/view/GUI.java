@@ -13,8 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.*;
 
 import br.lp2.player.*;
@@ -114,17 +112,71 @@ public class GUI extends JFrame {
 		Login login = new Login(usuarios);		
 		
 		// Eventos
-		
-		// Pedro
 		adicionarMusica.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				jfile.showOpenDialog(parent);
-				p1Player = new PlayerFile(jfile.getSelectedFile());		
+				
+				System.out.println("Caminho: " + jfile.getSelectedFile().getAbsolutePath());
+				System.out.println("Nome do arquivo: " + jfile.getSelectedFile().getName());
+				
+				// Checa se o arquivo é .mp3
+				if (!jfile.getSelectedFile().getName().substring(jfile.getSelectedFile().getName().length() - 4).equals(".mp3")) {
+					JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
+				}
+				else {
+					// Checa a se o nome ou caminho tem o caractere "¬"
+					if (jfile.getSelectedFile().getName().split("¬").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("¬").length > 1) {
+						JOptionPane.showMessageDialog(null, "Existe um '¬' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
+					}
+					else {
+						// Checa se a musica eh repetida
+						Boolean ehRepetida = false;
+						
+						for (int i = 0; i < musicas.size(); i++) {
+							// Eh repetida
+							if (musicas.get(i).getNome().equals(jfile.getSelectedFile().getName())) {
+								ehRepetida = true;
+								break;
+							}						
+						}
+						if (ehRepetida == false) {
+							musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
+						}
+					}
+					
+					// Abre arquivo no player de musica independente de ser repetida ou contem '¬'.
+					p1Player = new PlayerFile(jfile.getSelectedFile());	
+				}
+				
+					
 			}
 		});
+		removerMusica.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String musicaASerRemovida = JOptionPane.showInputDialog(null, "Qual musica deseja remover?");
+				
+				Boolean removida = false;
+				
+				for (int i = 0; i < musicas.size(); i++) {
+					if (musicas.get(i).getNome().equals(musicaASerRemovida)) {
+						musicas.remove(i);
+						removida = true;
+						JOptionPane.showMessageDialog(null, "Musica " + musicaASerRemovida + " removida.");
+						break;
+					}
+				}
+				
+				if (removida == false) {
+					JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
+				}
+				
+			}
+		});
+		
 		playPause.addActionListener(new ActionListener() {
 			
 			@Override
@@ -136,34 +188,45 @@ public class GUI extends JFrame {
 			}
 		});			
 		
-		
-		// Jonathan
 		adicionarUsuario.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cadastroUsuario.setVisible(true);				
+				
+				if (login.getUsuarioAtual().getVip() == true) {
+					cadastroUsuario.setVisible(true);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem cadastrar outros usuarios.");
+				}
+								
 			}
 		});
 		removerUsuario.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String usuarioASerRemovido = JOptionPane.showInputDialog(null, "Qual usuario deseja remover?");
 				
-				Boolean removido = false;
-				
-				for (int i = 0; i < usuarios.size(); i++) {
-					if (usuarios.get(i).getUser().equals(usuarioASerRemovido)) {
-						usuarios.remove(i);
-						removido = true;
-						JOptionPane.showMessageDialog(null, "Usuario " + usuarioASerRemovido + " removido.");
-						break;
+				if (login.getUsuarioAtual().getVip() == true) {
+					String usuarioASerRemovido = JOptionPane.showInputDialog(null, "Qual usuario deseja remover?");
+					
+					Boolean removido = false;
+					
+					for (int i = 0; i < usuarios.size(); i++) {
+						if (usuarios.get(i).getUser().equals(usuarioASerRemovido)) {
+							usuarios.remove(i);
+							removido = true;
+							JOptionPane.showMessageDialog(null, "Usuario " + usuarioASerRemovido + " removido.");
+							break;
+						}
+					}
+					
+					if (removido == false) {
+						JOptionPane.showMessageDialog(null, "Nao foi possivel remover o usuario " + usuarioASerRemovido);
 					}
 				}
-				
-				if (removido == false) {
-					JOptionPane.showMessageDialog(null, "Nao foi possivel remover o usuario " + usuarioASerRemovido);
+				else {
+					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem remover outros usuarios.");
 				}
 			}
 		});
