@@ -36,7 +36,6 @@ public class GUI extends JFrame {
 	private int LARGURA = 500;
 	
 	// Atributos responsaveis por armazenas os dados do player
-	private Usuario usuarioAtual;
 	private ArrayList<Musica> musicas = new ArrayList<Musica>();;
 	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -112,7 +111,7 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		// Login inicial
-		// Login login = new Login();		
+		Login login = new Login(usuarios);		
 		
 		// Eventos
 		

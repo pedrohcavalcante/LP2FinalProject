@@ -1,9 +1,16 @@
 package br.lp2.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import br.lp2.classes.Usuario;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
@@ -11,6 +18,9 @@ public class Login extends JFrame {
 	// Dimensoes da tela principal
 	private int ALTURA = 210;
 	private int LARGURA = 250;
+	
+	// Campo responsaovel por armazenar o login atual
+	private Usuario usuarioAtual;
 	
 	// Labels
 	private JLabel labelUsuario = new JLabel("Usuario");
@@ -21,10 +31,10 @@ public class Login extends JFrame {
 	private JTextField inputSenha = new JTextField();
 	
 	// Botoes
-	private JButton playPause = new JButton("Logar");
-	private JButton proximaMusica = new JButton("Cancelar");
+	private JButton logar = new JButton("Logar");
+	private JButton cancelar = new JButton("Cancelar");
 	
-	public Login() {
+	public Login(ArrayList<Usuario> listaUsuarios) {
 		// Configuracoes padrao
 		setTitle("Login");
 		setSize(LARGURA, ALTURA);
@@ -47,9 +57,47 @@ public class Login extends JFrame {
 		inputSenha.setBounds(10, 100, LARGURA - 26, 20);
 		
 		// Adicionando botoes
-		add(playPause);
-		add(proximaMusica);
-		playPause.setBounds(10, 140, 100, 20);
-		proximaMusica.setBounds(LARGURA - 117, 140, 100, 20);
+		add(logar);
+		add(cancelar);
+		logar.setBounds(10, 140, 100, 20);
+		cancelar.setBounds(LARGURA - 117, 140, 100, 20);
+		
+		
+		// Eventos
+		logar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Boolean logou = false;
+				Boolean userExiste = false;
+				
+				for (int i = 0; i < listaUsuarios.size(); i++) {
+					if (listaUsuarios.get(i).getUser().equals(inputUsuario.getText())) {
+						
+						userExiste = true;
+						
+						if (listaUsuarios.get(i).getSenha().equals(inputSenha.getText())) {
+							
+							usuarioAtual = new Usuario(listaUsuarios.get(i).getUser(), listaUsuarios.get(i).getSenha(), listaUsuarios.get(i).getVip());
+							
+							logou = true;
+							
+							setVisible(false);
+							
+							JOptionPane.showMessageDialog(null, "Login feito com sucesso");
+						}
+						else {							
+							JOptionPane.showMessageDialog(null, "Senha incorreta");
+						}
+						break;
+					}
+				}
+				
+				if (logou == false && userExiste == false) {
+					JOptionPane.showMessageDialog(null, "Usuario inexistente");
+				}
+			}
+		});
 	}
 }
