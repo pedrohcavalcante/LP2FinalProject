@@ -2,6 +2,7 @@ package br.lp2.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,14 +28,14 @@ public class CadastroUsuario extends JFrame {
 	private JTextField inputUsuario = new JTextField();
 	private JTextField inputSenha = new JTextField();
 	
-	// Botoes
-	private JButton cadastrar = new JButton("Cadastrar");
-	private JButton cancelar = new JButton("Fechar");
-	
 	// Checkbox
 	private JCheckBox vipCheckbox = new JCheckBox("VIP");
 	
-	public CadastroUsuario() {
+	// Botoes
+	private JButton cadastrar = new JButton("Cadastrar");
+	private JButton fechar = new JButton("Fechar");
+	
+	public CadastroUsuario(ArrayList<Usuario> listaUsuarios) {
 		// Configuracoes padrao
 		setTitle("Cadastro");
 		setSize(LARGURA, ALTURA);
@@ -62,38 +63,64 @@ public class CadastroUsuario extends JFrame {
 				
 		// Adicionando botoes
 		add(cadastrar);
-		add(cancelar);
+		add(fechar);
 		cadastrar.setBounds(10, 180, 100, 20);
-		cancelar.setBounds(LARGURA - 117, 180, 100, 20);
+		fechar.setBounds(LARGURA - 117, 180, 100, 20);
 		
 		// Eventos dos botoes
 		cadastrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Checa se o usuario ou senha estao em branco
 				if (inputUsuario.getText().equals("") || inputSenha.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Insira usuario e senha");
 				}
+				// Checa se o usuario inserido tem espacos
+				else if (inputUsuario.getText().split("¬").length > 1 ){
+					JOptionPane.showMessageDialog(null, "O campo de usuario nao pode conter '¬'");
+				}
+				// Checa se a senha inserida tem espacos
+				else if (inputSenha.getText().split("¬").length > 1 ){
+					JOptionPane.showMessageDialog(null, "O campo de senha nao pode conter '¬'");
+				}
 				else {
-					Usuario usuario;
+					Boolean ehRepetido = false;
 					
-					if (vipCheckbox.isSelected()) {
-						usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), true);
+					// Checa se o usuario eh repetido
+					for (int i = 0; i < listaUsuarios.size(); i++) {
+						if (inputUsuario.getText().equals(listaUsuarios.get(i).getUser())) {
+							ehRepetido = true;
+						}
+					}
+					
+					if (!ehRepetido) {
+						// Cria um novo usuario
+						Usuario usuario;
+						
+						if (vipCheckbox.isSelected()) {
+							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), true);
+						}
+						else {
+							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), false);
+						}
+						
+						// Limpa os campos
+						inputUsuario.setText("");
+						inputSenha.setText("");
+						vipCheckbox.setSelected(false);
+						
+						// Adiciona o usuario a ArrayList de usuarios da GUI.
+						listaUsuarios.add(usuario);	
 					}
 					else {
-						usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), false);
+						JOptionPane.showMessageDialog(null, "Este usuario ja existe");
 					}
-					
-					inputUsuario.setText("");
-					inputSenha.setText("");
-					vipCheckbox.setSelected(false);
-					
-					// TODO: adicionar usuario criado no ArrayList de usuarios.
 				}
 			}
 		});
 
-		cancelar.addActionListener(new ActionListener() {
+		fechar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -101,5 +128,4 @@ public class CadastroUsuario extends JFrame {
 			}
 		});
 	}
-	
 }
