@@ -2,15 +2,21 @@ package br.lp2.classes;
 
 public class Musica {
 	// Atributos
-	private int id;
+	private String nome;
 	private String caminho;
 	
-	// Metodos
-	public int getId() {
-		return id;
+	// Construtor
+	public Musica(String nome, String caminho) {
+		this.nome = nome;
+		this.caminho = caminho;
 	}
-	public void setID(int id) {
-		this.id = id;
+	
+	// Metodos
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public String getCaminho() {
 		return caminho;
