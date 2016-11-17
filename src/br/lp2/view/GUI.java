@@ -28,8 +28,8 @@ public class GUI extends JFrame {
 	
 	JFileChooser jfile;
 	Component parent = null;
-	private Player ply;
-	Music msc = new Music();
+	//private Player ply;
+	
 	
 	// Dimensoes da tela principal
 	private int ALTURA = 300;
@@ -38,10 +38,10 @@ public class GUI extends JFrame {
 	//Player
 	File p1Player;
 	ArrayList<File> arrayMusic = new ArrayList<File>();
-	Player pl;
+	private Player pl = null;
 	
 	// Janela de cadastro de usuario
-	private CadastroUsuario cadastroUsuario = new CadastroUsuario();
+	//private CadastroUsuario cadastroUsuario = new CadastroUsuario();
 	
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
@@ -132,7 +132,8 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				pause.setEnabled(true);
 				play.setEnabled(false);
-				msc.run();
+				Music msc = new Music();
+				msc.start();
 
 			}
 		});			
@@ -149,7 +150,7 @@ public class GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cadastroUsuario.setVisible(true);				
+				//cadastroUsuario.setVisible(true);				
 			}
 		});
 	}
@@ -165,27 +166,26 @@ public class GUI extends JFrame {
 	}*/
 	class Music extends Thread{
 		public void run(){
+			try {
 			System.out.println("chegou aqui222");
-			System.out.println(arrayMusic.get(0).getPath());
-			InputStream teste = this.getClass().getResourceAsStream(arrayMusic.get(0).getPath());
+			//System.out.println("CAMINHO " + arrayMusic.get(0).getPath());
+			InputStream teste = this.getClass().getResourceAsStream(p1Player + "");
 			//System.out.println("GETPATH() " + file.getPath() + " GETABSOLUTPATH() "+ file.getAbsolutePath());
-			try {
 				pl = new Player(teste);
-			} catch (JavaLayerException e) {
+				//pl.play();
+			} catch (JavaLayerException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch(NullPointerException npe){
-				//npe.printStackTrace();
-				System.out.println(npe.getMessage());
-				System.out.println(npe.getCause());
+				e1.printStackTrace();
 			}
-			try {
-				pl.play();
-			} catch (JavaLayerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
 	}
 }
+
+/*
+ * 
+ * Java Program Play A MP3 File Using JLayer https://www.youtube.com/watch?v=f-7cgX_I220
+ * PARTE 1https://www.youtube.com/watch?v=kC9_dK5hQPo
+ * PARTE 2https://www.youtube.com/watch?v=cu1mcOjJtdg
+ * USING JFILECHOOSER https://www.youtube.com/watch?v=JuoXQzbKc58
+ * https://mega.nz/#!Z4EGBLjY!CO5nDac0VUIJczwdvazQMBcrZuOX_6248CRuMRBEbpU
+ * */
