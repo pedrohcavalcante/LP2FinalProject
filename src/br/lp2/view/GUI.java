@@ -42,10 +42,10 @@ public class GUI extends JFrame {
 	PlayerFile p1Player;
 	
 	// Janela de cadastro de usuario
-	private CadastroUsuario cadastroUsuario = new CadastroUsuario(usuarios);
+	private CadastroUsuario cadastroUsuario;
 	
 	// Janela de listagem de musicas
-	private ListaMusicas listaMusicas = new ListaMusicas(musicas);
+	private ListaMusicas listaMusicas;
 	
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
@@ -73,6 +73,9 @@ public class GUI extends JFrame {
 		
 		// Metodo desponsavel por carregar os dados dos usuarios
 		carregarDados();
+		
+		cadastroUsuario = new CadastroUsuario(usuarios);
+		listaMusicas = new ListaMusicas(musicas);
 		
 		// Configuracoes padrao
 		setTitle("Player de musica");
@@ -356,8 +359,6 @@ public class GUI extends JFrame {
 				String[] dados2 = sCurrentLine2.split("¬");
 				
 				musicas.add(new Musica(dados2[0], dados2[1]));
-				
-				
 				
 				// mensagem para debugar
 				System.out.println("Musica <" + dados2[0] + "> com caminho <" + dados2[1] + "> carregada.");
