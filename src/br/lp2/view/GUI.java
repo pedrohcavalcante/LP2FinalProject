@@ -44,6 +44,9 @@ public class GUI extends JFrame {
 	// Janela de cadastro de usuario
 	private CadastroUsuario cadastroUsuario = new CadastroUsuario(usuarios);
 	
+	// Janela de listagem de musicas
+	private ListaMusicas listaMusicas = new ListaMusicas(musicas);
+	
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
 	// Menus
@@ -78,7 +81,7 @@ public class GUI extends JFrame {
 		setVisible(true);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		// Adicionando menu
 		menuBar.add(menuMusicas);
@@ -106,7 +109,7 @@ public class GUI extends JFrame {
 		playPause.setBounds(70, ALTURA - 90, 100, 30);
 		proximaMusica.setBounds(180, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
 		
 		// Login inicial
 		Login login = new Login(usuarios);		
@@ -176,6 +179,14 @@ public class GUI extends JFrame {
 				
 			}
 		});
+		verMusicas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				listaMusicas.setVisible(true);
+			}
+		});
 		
 		playPause.addActionListener(new ActionListener() {
 			
@@ -232,7 +243,7 @@ public class GUI extends JFrame {
 		});
 
 
-		// Fechamento de janela persanalizado
+		// Fechamento de janela personalizado
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				persistirDados();
