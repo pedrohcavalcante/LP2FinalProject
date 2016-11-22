@@ -30,8 +30,8 @@ public class GUI extends JFrame {
 	
 	
 	// Dimensoes da tela principal
-	private int ALTURA = 300;
-	private int LARGURA = 500;
+	private int ALTURA = 500;
+	private int LARGURA = 750;
 	
 	// Atributos responsaveis por armazenas os dados do player
 	private ArrayList<Musica> musicas = new ArrayList<Musica>();;
@@ -64,9 +64,24 @@ public class GUI extends JFrame {
 	private JMenuItem removerUsuario = new JMenuItem("Remover usuario");
 
 	// Botoes
+	private JButton addMusica = new JButton("Adicionar musica");
+	private JButton addPasta = new JButton("Adicionar pasta");
 	private JButton playPause = new JButton("Play/Pause");
 	private JButton proximaMusica = new JButton(">>");
 	private JButton anteriorMusica = new JButton("<<");
+	private JButton addPlaylist = new JButton("Adicionar playlist");
+	
+	// Labels
+	private JLabel labelMusicas = new JLabel("Musicas");
+	private JLabel labelAtualPlaylist = new JLabel("Playlist atual");
+	private JLabel labelPlaylists = new JLabel("Playlists");
+	private JLabel labelUsuario = new JLabel("Usuario atual");
+	private JLabel labelVip = new JLabel("VIP");
+	
+	// Textfields
+	private JTextField textMusicas = new JTextField();
+	private JTextField textAtualPlaylist = new JTextField();
+	private JTextField textPlaylists = new JTextField();
 	
 	public GUI() {
 		jfile = new JFileChooser();
@@ -105,14 +120,42 @@ public class GUI extends JFrame {
 		setJMenuBar(menuBar);
 
 		// Adicionando botoes
+		add(addMusica);
+		add(addPasta);
+		add(addPasta);
 		add(playPause);
 		add(proximaMusica);
 		add(anteriorMusica);
+		add(addPlaylist);
 		// Setando posicao dos botoes
+		addMusica.setBounds(10, 10, 140, 30);
+		addPasta.setBounds(10, 50, 140, 30);
 		playPause.setBounds(70, ALTURA - 90, 100, 30);
 		proximaMusica.setBounds(180, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
+		addPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
 		
+		// Adicionando labels
+		add(labelMusicas);
+		add(labelAtualPlaylist);
+		add(labelPlaylists);
+		add(labelUsuario);
+		add(labelVip);
+		// Setando posicao das labels
+		labelMusicas.setBounds(160, 20, 200, 30);
+		labelAtualPlaylist.setBounds(370, 20, 200, 30);
+		labelPlaylists.setBounds(LARGURA - 160, 170, 140, 30);
+		labelUsuario.setBounds(LARGURA - 160, 20, 140, 30);
+		labelVip.setBounds(LARGURA - 160, 40, 140, 30);
+		
+		// Adicionando textfields
+		add(textMusicas);
+		add(textAtualPlaylist);
+		add(textPlaylists);
+		// Setando posicao dos textfields
+		textMusicas.setBounds(160, 50, 200, 350);
+		textAtualPlaylist.setBounds(370, 50, 200, 350);
+		textPlaylists.setBounds(LARGURA - 160, 200, 140, 200);
 		
 		// Login inicial
 		Login login = new Login(usuarios);		
