@@ -29,8 +29,8 @@ public class GUI extends JFrame {
 	JFileChooser jfile;
 	Component parent = null;
 	//private Player ply;
-	
-	
+	InputStream teste;
+	boolean playing = false;
 	// Dimensoes da tela principal
 	private int ALTURA = 300;
 	private int LARGURA = 500;
@@ -38,7 +38,9 @@ public class GUI extends JFrame {
 	//Player
 	File p1Player;
 	ArrayList<File> arrayMusic = new ArrayList<File>();
-	private Player pl = null;
+	private Player musicFile = null;
+	int cont = 0;
+	//Music msc;
 	
 	// Janela de cadastro de usuario
 	//private CadastroUsuario cadastroUsuario = new CadastroUsuario();
@@ -130,9 +132,10 @@ public class GUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Music msc = new Music();
 				pause.setEnabled(true);
 				play.setEnabled(false);
-				Music msc = new Music();
+				playing = true;
 				msc.start();
 
 			}
@@ -143,6 +146,7 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				play.setEnabled(true);
+				musicFile.close();
 			}
 		});
 		
@@ -151,6 +155,24 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//cadastroUsuario.setVisible(true);				
+			}
+		});
+		proximaMusica.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				cont++;
+				if (arrayMusic.size() == 1){
+					System.out.println("só tem uma musica");
+				}else{
+					if (playing = true){
+						musicFile.close();
+						Music msc = new Music();
+						msc.start();
+					}
+					
+				}
 			}
 		});
 	}
@@ -169,11 +191,11 @@ public class GUI extends JFrame {
 			try {
 			System.out.println("chegou aqui222");
 			//System.out.println("CAMINHO " + arrayMusic.get(0).getPath());
-			InputStream teste = this.getClass().getResourceAsStream(p1Player + "");
+			teste = new FileInputStream(arrayMusic.get(cont).getAbsolutePath());
 			//System.out.println("GETPATH() " + file.getPath() + " GETABSOLUTPATH() "+ file.getAbsolutePath());
-				pl = new Player(teste);
-				//pl.play();
-			} catch (JavaLayerException e1) {
+				musicFile = new Player(teste);
+				musicFile.play();
+			} catch (JavaLayerException | FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
