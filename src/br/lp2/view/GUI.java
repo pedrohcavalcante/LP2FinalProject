@@ -137,7 +137,6 @@ public class GUI extends JFrame {
 				play.setEnabled(false);
 				playing = true;
 				msc.start();
-
 			}
 		});			
 		pause.addActionListener(new ActionListener() {
@@ -173,6 +172,23 @@ public class GUI extends JFrame {
 					}
 					
 				}
+			}
+		});
+		anteriorMusica.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				cont--;
+				if (arrayMusic.size() - cont == 0){
+					anteriorMusica.setEnabled(false);
+				}
+				if (playing = true){
+					musicFile.close();
+					Music msc = new Music();
+					msc.start();
+				}
+				
 			}
 		});
 	}

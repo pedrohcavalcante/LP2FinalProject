@@ -1,4 +1,5 @@
 package br.lp2.player;
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
@@ -6,6 +7,7 @@ import java.awt.Component;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -26,15 +28,5 @@ public class PlayerFile extends Thread{
 		this.music_fl = mp3;
 	}
 	public void Play() {
-		try{
-			FileInputStream stream = new FileInputStream(music_fl);
-            BufferedInputStream buffer = new BufferedInputStream(stream);
-            this.player = new AdvancedPlayer(buffer);
-            System.out.println("Executando...");
-            this.player.play();
-            System.out.println("Terminado");
-		}catch (Exception e){
-			System.out.println("ops");
-		}
 	}
 }
