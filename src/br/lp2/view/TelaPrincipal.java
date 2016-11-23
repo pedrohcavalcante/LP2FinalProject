@@ -47,7 +47,7 @@ public class TelaPrincipal extends JFrame {
 	
 	// Janela de listagem de musicas
 	private ListaMusicas listaMusicas;
-	
+	MusicPlayer musicPlayer;
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
 	// Menus
@@ -163,6 +163,7 @@ public class TelaPrincipal extends JFrame {
 		
 		// Login inicial
 		Login login = new Login(usuarios);		
+		stop.setEnabled(false);
 		
 		// Eventos
 		adicionarMusica.addActionListener(new ActionListener() {
@@ -240,7 +241,7 @@ public class TelaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MusicPlayer musicPlayer = new MusicPlayer(musicas);
+				musicPlayer = new MusicPlayer(musicas);
 				
 				stop.setEnabled(true);
 				play.setEnabled(false);
@@ -250,7 +251,16 @@ public class TelaPrincipal extends JFrame {
 				musicPlayer.start();
 			}
 		});			
-		
+		stop.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				musicPlayer.close();
+				play.setEnabled(true);
+				stop.setEnabled(false);
+			}
+		});
 		adicionarUsuario.addActionListener(new ActionListener() {
 
 			@Override

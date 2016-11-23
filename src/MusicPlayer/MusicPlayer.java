@@ -32,4 +32,9 @@ public class MusicPlayer extends Thread{
 			e1.printStackTrace();
 		}
 	}
+
+	public void close() {
+		// TODO Auto-generated method stub
+		musicFile.close();
+	}
 }
