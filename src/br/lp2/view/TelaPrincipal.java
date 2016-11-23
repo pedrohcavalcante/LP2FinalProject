@@ -33,8 +33,8 @@ import br.lp2.main.*;
 public class TelaPrincipal extends JFrame {
 	
 	// Instanciando o JFileChooser usado para abrir musicas
-	JFileChooser jfile;
-	Component parent = null;
+	private JFileChooser jfile;
+	private Component parent = null;
 	
 	// Dimensoes da tela principal
 	private int ALTURA = 500;
@@ -68,7 +68,7 @@ public class TelaPrincipal extends JFrame {
 
 	// Botoes
 	private JButton adicionarMusica = new JButton("Adicionar musica");
-	private JButton addPasta = new JButton("Adicionar pasta");
+	private JButton adicionarPasta = new JButton("Adicionar pasta");
 	private JButton play = new JButton("Play");
 	private JButton stop = new JButton("Stop");
 	private JButton proximaMusica = new JButton(">>");
@@ -88,8 +88,13 @@ public class TelaPrincipal extends JFrame {
 	private JTextArea textPlaylists = new JTextArea();
 	
 	public TelaPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		
+		// variavel de insercao de musicas
 		jfile = new JFileChooser();
+		
+		// Configuracao do layout dos botoes
 		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		
 		// Metodo desponsavel por carregar os dados dos usuarios
 		carregarDados();
 		
@@ -121,8 +126,7 @@ public class TelaPrincipal extends JFrame {
 
 		// Adicionando botoes
 		add(adicionarMusica);
-		add(addPasta);
-		add(addPasta);
+		add(adicionarPasta);
 		add(play);
 		add(stop);
 		add(proximaMusica);
@@ -130,7 +134,7 @@ public class TelaPrincipal extends JFrame {
 		add(addPlaylist);
 		// Setando posicao dos botoes
 		adicionarMusica.setBounds(10, 10, 140, 30);
-		addPasta.setBounds(10, 50, 140, 30);
+		adicionarPasta.setBounds(10, 50, 140, 30);
 		play.setBounds(70, ALTURA - 90, 100, 30);
 		stop.setBounds(180, ALTURA - 90, 100, 30);
 		proximaMusica.setBounds(290, ALTURA - 90, 50, 30);

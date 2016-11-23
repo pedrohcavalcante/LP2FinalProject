@@ -45,7 +45,7 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// Adicionando labels
-		//COLOQUEI USUÁRIO PARA NAO TER QUE FICAR DIGITANDO HORRORES REMOVER
+		//COLOQUEI USUÃ�RIO PARA NAO TER QUE FICAR DIGITANDO HORRORES REMOVER
 		inputUsuario.setText("jonathan");
 		inputSenha.setText("pedro");
 		//
@@ -84,7 +84,7 @@ public class Login extends JFrame {
 						usuarioAtual = new Usuario("admin", "admin", true);
 						
 						usuario.setText("Logado como admin");
-						vip.setText("VIP");
+						vip.setText("usuario VIP");
 						
 						setVisible(false);
 						
@@ -105,10 +105,10 @@ public class Login extends JFrame {
 							
 							usuario.setText("Logado como " + listaUsuarios.get(i).getUser());
 							if (listaUsuarios.get(i).getVip() == true) {
-								vip.setText("VIP");
+								vip.setText("usuario VIP");
 							}
 							else {
-								vip.setText("");
+								vip.setText("usuario nao VIP");
 							}
 							
 							setVisible(false);

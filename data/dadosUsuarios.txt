@@ -2,4 +2,3 @@
 jonathan&pedro&true
 louca&12345&false
 jonathan rocha&hgatredf&false
-lalalala&lala&true
