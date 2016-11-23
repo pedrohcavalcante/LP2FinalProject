@@ -174,7 +174,6 @@ public class TelaPrincipal extends JFrame {
 		
 		// Login inicial
 		Login login = new Login(usuarios, labelUsuario, labelVip, this);
-		
 		// Eventos
 		adicionarMusica.addActionListener(new ActionListener() {
 			
@@ -259,7 +258,7 @@ public class TelaPrincipal extends JFrame {
 					// Recebe o nome da nova playlist do usuario
 					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
 					
-					// Cria e adiciona uma nova playlist à lista
+					// Cria e adiciona uma nova playlist ï¿½ lista
 					playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
 					
 					// Imprime a nova playlist na lista de playlists
