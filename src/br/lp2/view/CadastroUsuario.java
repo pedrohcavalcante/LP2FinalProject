@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -102,6 +105,9 @@ public class CadastroUsuario extends JFrame {
 						
 						if (vipCheckbox.isSelected()) {
 							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), true);
+							new File ("/data/" + inputUsuario.getText()+"/playlists/").mkdirs();
+							Path dir = Paths.get("/data/" + inputUsuario.getText()+"/playlists/");
+							//dir.mkdirs();
 						}
 						else {
 							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), false);
@@ -112,6 +118,7 @@ public class CadastroUsuario extends JFrame {
 						inputSenha.setText("");
 						vipCheckbox.setSelected(false);
 						
+						//
 						// Adiciona o usuario a ArrayList de usuarios da GUI.
 						listaUsuarios.add(usuario);	
 					}
