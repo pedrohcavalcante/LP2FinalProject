@@ -431,4 +431,19 @@ public class GUI extends JFrame {
 		
 		// TODO: carregar dados das playlists		
 	}
+	class Music extends Thread{
+		public void run(){
+			try {
+			System.out.println("chegou aqui222");
+			//System.out.println("CAMINHO " + arrayMusic.get(0).getPath());
+			teste = new FileInputStream(arrayMusic.get(cont).getAbsolutePath());
+			//System.out.println("GETPATH() " + file.getPath() + " GETABSOLUTPATH() "+ file.getAbsolutePath());
+				musicFile = new Player(teste);
+				musicFile.play();
+			} catch (JavaLayerException | FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
 }
