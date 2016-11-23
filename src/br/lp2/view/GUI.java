@@ -66,7 +66,8 @@ public class GUI extends JFrame {
 	// Botoes
 	private JButton addMusica = new JButton("Adicionar musica");
 	private JButton addPasta = new JButton("Adicionar pasta");
-	private JButton playPause = new JButton("Play/Pause");
+	private JButton play = new JButton("Play");
+	private JButton pause = new JButton("Pause");
 	private JButton proximaMusica = new JButton(">>");
 	private JButton anteriorMusica = new JButton("<<");
 	private JButton addPlaylist = new JButton("Adicionar playlist");
@@ -123,15 +124,17 @@ public class GUI extends JFrame {
 		add(addMusica);
 		add(addPasta);
 		add(addPasta);
-		add(playPause);
+		add(play);
+		add(pause);
 		add(proximaMusica);
 		add(anteriorMusica);
 		add(addPlaylist);
 		// Setando posicao dos botoes
 		addMusica.setBounds(10, 10, 140, 30);
 		addPasta.setBounds(10, 50, 140, 30);
-		playPause.setBounds(70, ALTURA - 90, 100, 30);
-		proximaMusica.setBounds(180, ALTURA - 90, 50, 30);
+		play.setBounds(70, ALTURA - 90, 100, 30);
+		pause.setBounds(180, ALTURA - 90, 100, 30);
+		proximaMusica.setBounds(290, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
 		addPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
 		
@@ -234,7 +237,7 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		playPause.addActionListener(new ActionListener() {
+		play.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -244,6 +247,8 @@ public class GUI extends JFrame {
 
 			}
 		});			
+		
+		
 		
 		adicionarUsuario.addActionListener(new ActionListener() {
 
