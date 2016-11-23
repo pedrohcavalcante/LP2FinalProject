@@ -34,7 +34,7 @@ public class Login extends JFrame {
 	private JButton logar = new JButton("Logar");
 	private JButton cancelar = new JButton("Cancelar");
 	
-	public Login(ArrayList<Usuario> listaUsuarios) {
+	public Login(ArrayList<Usuario> listaUsuarios, JLabel usuario, JLabel vip) {
 		// Configuracoes padrao
 		setTitle("Login");
 		setSize(LARGURA, ALTURA);
@@ -73,6 +73,22 @@ public class Login extends JFrame {
 				Boolean userExiste = false;
 				
 				for (int i = 0; i < listaUsuarios.size(); i++) {
+					
+					// Login do usuario admin
+					if (inputUsuario.getText().equals("admin") && inputSenha.getText().equals("admin")) {
+						
+						usuarioAtual = new Usuario("admin", "admin", true);
+						
+						usuario.setText("Logado como admin");
+						vip.setText("VIP");
+						
+						setVisible(false);
+						
+						logou = true;
+						userExiste = true;
+						break;
+					}
+					
 					if (listaUsuarios.get(i).getUser().equals(inputUsuario.getText())) {
 						
 						userExiste = true;
@@ -82,6 +98,14 @@ public class Login extends JFrame {
 							usuarioAtual = new Usuario(listaUsuarios.get(i).getUser(), listaUsuarios.get(i).getSenha(), listaUsuarios.get(i).getVip());
 							
 							logou = true;
+							
+							usuario.setText("Logado como " + listaUsuarios.get(i).getUser());
+							if (listaUsuarios.get(i).getVip() == true) {
+								vip.setText("VIP");
+							}
+							else {
+								vip.setText("");
+							}
 							
 							setVisible(false);
 						}

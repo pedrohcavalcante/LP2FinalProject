@@ -1,9 +1,3 @@
-I'll Be There¬C:\Users\Jonathan\workspace\LP2FinalProject\data
 Ariana Grande - Side To Side ft. Nicki Minaj.mp3¬C:\Users\pedri\Downloads\Ariana Grande - Side To Side ft. Nicki Minaj.mp3
-Feelin' Fine.mp3¬C:\Users\Jonathan\Desktop\Músicas desorganizadas\Feelin' Fine.mp3
-<<<<<<< HEAD
-Feels Like We Only Go Backwards.mp3¬C:\Users\Jonathan\Desktop\Músicas desorganizadas\Feels Like We Only Go Backwards.mp3
-=======
-Feels Like We Only Go Backwards.mp3¬C:\Users\Jonathan\Desktop\Músicas desorganizadas\Feels Like We Only Go Backwards.mp3
-Jessie J, Ariana Grande, Nicki Minaj - Bang Bang ft. Ariana Grande, Nicki Minaj.mp3¬C:\Users\pedri\Downloads\Jessie J, Ariana Grande, Nicki Minaj - Bang Bang ft. Ariana Grande, Nicki Minaj.mp3
->>>>>>> origin/master
+(I Just) Died in Your Arms.mp3¬C:\Users\Jonathan\Desktop\Músicas desorganizadas\(I Just) Died in Your Arms.mp3
+003.Secos & Molhados -  Flores Astrais.mp3¬C:\Users\Jonathan\Desktop\Músicas desorganizadas\Secos e Molhados - Discografia\Ney Matogrosso e Secos & Molhados\003.Secos & Molhados -  Flores Astrais.mp3

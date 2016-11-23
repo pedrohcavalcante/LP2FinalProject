@@ -1,5 +1,6 @@
 package br.lp2.view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import MusicPlayer.MusicPlayer;
 import javazoom.jl.decoder.JavaLayerException;
@@ -47,7 +49,10 @@ public class TelaPrincipal extends JFrame {
 	
 	// Janela de listagem de musicas
 	private ListaMusicas listaMusicas;
-	MusicPlayer musicPlayer;
+	
+	// Classe responsavel por tocar as musicas
+	private MusicPlayer musicPlayer;
+	
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
 	// Menus
@@ -55,17 +60,13 @@ public class TelaPrincipal extends JFrame {
 	private JMenu menuPlaylists = new JMenu("Playlists");
 	private JMenu menuUsuarios = new JMenu("Usuarios");	
 	// Menu items
-	private JMenuItem adicionarMusica = new JMenuItem("Adicionar musica");
 	private JMenuItem removerMusica = new JMenuItem("Remover musica");
-	private JMenuItem verMusicas = new JMenuItem("Ver lista de musicas");
-	private JMenuItem verPlaylists = new JMenuItem("Ver playlists");	
-	private JMenuItem criarPlaylist = new JMenuItem("Criar playlist");
 	private JMenuItem removerPlaylist = new JMenuItem("Remover playlist");
 	private JMenuItem adicionarUsuario = new JMenuItem("Cadastrar usuarios");
 	private JMenuItem removerUsuario = new JMenuItem("Remover usuario");
 
 	// Botoes
-	private JButton addMusica = new JButton("Adicionar musica");
+	private JButton adicionarMusica = new JButton("Adicionar musica");
 	private JButton addPasta = new JButton("Adicionar pasta");
 	private JButton play = new JButton("Play");
 	private JButton stop = new JButton("Stop");
@@ -81,9 +82,9 @@ public class TelaPrincipal extends JFrame {
 	private JLabel labelVip = new JLabel("VIP");
 	
 	// Textfields
-	private JTextField textMusicas = new JTextField();
-	private JTextField textAtualPlaylist = new JTextField();
-	private JTextField textPlaylists = new JTextField();
+	private JTextArea textMusicas = new JTextArea();
+	private JTextArea textAtualPlaylist = new JTextArea();
+	private JTextArea textPlaylists = new JTextArea();
 	
 	public TelaPrincipal() {
 		jfile = new JFileChooser();
@@ -109,11 +110,7 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(menuUsuarios);
 		
 		// Adicionando itens aos menus
-		menuMusicas.add(verMusicas);
-		menuMusicas.add(adicionarMusica);
 		menuMusicas.add(removerMusica);
-		menuPlaylists.add(verPlaylists);
-		menuPlaylists.add(criarPlaylist);
 		menuPlaylists.add(removerPlaylist);
 		menuUsuarios.add(adicionarUsuario);
 		menuUsuarios.add(removerUsuario);
@@ -122,7 +119,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 
 		// Adicionando botoes
-		add(addMusica);
+		add(adicionarMusica);
 		add(addPasta);
 		add(addPasta);
 		add(play);
@@ -131,7 +128,7 @@ public class TelaPrincipal extends JFrame {
 		add(anteriorMusica);
 		add(addPlaylist);
 		// Setando posicao dos botoes
-		addMusica.setBounds(10, 10, 140, 30);
+		adicionarMusica.setBounds(10, 10, 140, 30);
 		addPasta.setBounds(10, 50, 140, 30);
 		play.setBounds(70, ALTURA - 90, 100, 30);
 		stop.setBounds(180, ALTURA - 90, 100, 30);
@@ -152,17 +149,24 @@ public class TelaPrincipal extends JFrame {
 		labelUsuario.setBounds(LARGURA - 160, 20, 140, 30);
 		labelVip.setBounds(LARGURA - 160, 40, 140, 30);
 		
-		// Adicionando textfields
+		// Adicionando TextAreas
 		add(textMusicas);
 		add(textAtualPlaylist);
 		add(textPlaylists);
 		// Setando posicao dos textfields
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		textMusicas.setBounds(160, 50, 200, 350);
+		textMusicas.setBorder(border);
+		textMusicas.setEditable(false);
 		textAtualPlaylist.setBounds(370, 50, 200, 350);
+		textAtualPlaylist.setBorder(border);
+		textAtualPlaylist.setEditable(false);
 		textPlaylists.setBounds(LARGURA - 160, 200, 140, 200);
+		textPlaylists.setBorder(border);
+		textPlaylists.setEditable(false);
 		
 		// Login inicial
-		Login login = new Login(usuarios);		
+		Login login = new Login(usuarios, labelUsuario, labelVip);		
 		stop.setEnabled(false);
 		
 		// Eventos
@@ -198,6 +202,7 @@ public class TelaPrincipal extends JFrame {
 						if (ehRepetida == false) {
 							musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
 							
+							textMusicas.append("> " + jfile.getSelectedFile().getName() + "\n");
 						}
 					}	
 				}
@@ -216,6 +221,13 @@ public class TelaPrincipal extends JFrame {
 						musicas.remove(i);
 						removida = true;
 						JOptionPane.showMessageDialog(null, "Musica " + musicaASerRemovida + " removida.");
+						
+						textMusicas.setText("");
+						
+						for (int j = 0; j < musicas.size(); j++) {
+							textMusicas.append("> " + musicas.get(j).getNome() + "\n");
+						}
+						
 						break;
 					}
 				}
@@ -224,14 +236,6 @@ public class TelaPrincipal extends JFrame {
 					JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
 				}
 				
-			}
-		});
-		verMusicas.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				listaMusicas.setVisible(true);
 			}
 		});
 		
@@ -261,6 +265,7 @@ public class TelaPrincipal extends JFrame {
 				stop.setEnabled(false);
 			}
 		});
+		
 		adicionarUsuario.addActionListener(new ActionListener() {
 
 			@Override
@@ -421,6 +426,9 @@ public class TelaPrincipal extends JFrame {
 				
 				// mensagem para debugar
 				System.out.println("Musica <" + dados2[0] + "> com caminho <" + dados2[1] + "> carregada.");
+			
+				// Escreve as musicas no TextArea de musicas
+				textMusicas.append("> " + dados2[0] + "\n");
 			}
 		}
 		catch (IOException e) {
