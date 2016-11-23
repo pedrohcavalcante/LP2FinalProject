@@ -242,8 +242,13 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				p1Player.tocar(jfile.getSelectedFile());
-				p1Player.start();
+				/*p1Player.tocar(jfile.getSelectedFile());
+				p1Player.start();*/
+				Music msc = new Music();
+				pause.setEnabled(true);
+				play.setEnabled(false);
+				playing = true;
+				msc.start();
 
 			}
 		});			
