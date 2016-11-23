@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -73,7 +74,7 @@ public class TelaPrincipal extends JFrame {
 	private JButton stop = new JButton("Stop");
 	private JButton proximaMusica = new JButton(">>");
 	private JButton anteriorMusica = new JButton("<<");
-	private JButton addPlaylist = new JButton("Adicionar playlist");
+	private JButton adicionarPlaylist = new JButton("Adicionar playlist");
 	
 	// Labels
 	private JLabel labelMusicas = new JLabel("Musicas");
@@ -105,7 +106,7 @@ public class TelaPrincipal extends JFrame {
 		setTitle("Player de musica");
 		setSize(LARGURA, ALTURA);
 		setLayout(null);
-		setVisible(true);
+		setVisible(false);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -131,15 +132,16 @@ public class TelaPrincipal extends JFrame {
 		add(stop);
 		add(proximaMusica);
 		add(anteriorMusica);
-		add(addPlaylist);
+		add(adicionarPlaylist);
 		// Setando posicao dos botoes
 		adicionarMusica.setBounds(10, 10, 140, 30);
 		adicionarPasta.setBounds(10, 50, 140, 30);
 		play.setBounds(70, ALTURA - 90, 100, 30);
 		stop.setBounds(180, ALTURA - 90, 100, 30);
+		stop.setEnabled(false);
 		proximaMusica.setBounds(290, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
-		addPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
+		adicionarPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
 		
 		// Adicionando labels
 		add(labelMusicas);
@@ -171,8 +173,7 @@ public class TelaPrincipal extends JFrame {
 		textPlaylists.setEditable(false);
 		
 		// Login inicial
-		Login login = new Login(usuarios, labelUsuario, labelVip);		
-		stop.setEnabled(false);
+		Login login = new Login(usuarios, labelUsuario, labelVip, this);
 		
 		// Eventos
 		adicionarMusica.addActionListener(new ActionListener() {
@@ -249,6 +250,63 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
+		adicionarPlaylist.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (login.getUsuarioAtual().getVip() == true) {
+					// Recebe o nome da nova playlist do usuario
+					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
+					
+					// Cria e adiciona uma nova playlist à lista
+					playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
+					
+					// Imprime a nova playlist na lista de playlists
+					textPlaylists.append("> " + nomeNovaPlaylist + "\n");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem criar playlists.");
+				}
+			}
+		});
+		removerPlaylist.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (login.getUsuarioAtual().getVip() == true) {
+					String playlistASerRemovida = JOptionPane.showInputDialog(null, "Qual playlist deseja remover?");
+
+					if (playlistASerRemovida != null){
+
+						Boolean removido = false;
+
+						for (int i = 0; i < playlists.size(); i++) {
+							if (playlists.get(i).getNome().equals(playlistASerRemovida)) {
+								playlists.remove(i);
+								removido = true;
+								JOptionPane.showMessageDialog(null, "Playlist " + playlistASerRemovida + " removida.");
+								break;
+							}
+						}
+						
+						if (removido == true) {
+							textPlaylists.setText("");
+							for (int j = 0; j < playlists.size(); j++) {
+								textPlaylists.append("> " + playlists.get(j).getNome() + "\n");
+							}
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Nao foi possivel remover a playlist " + playlistASerRemovida);
+						}
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem excluir playlists.");
+				}
+			}
+		});
+		
 		play.addActionListener(new ActionListener() {
 			
 			private boolean playing;
@@ -299,7 +357,7 @@ public class TelaPrincipal extends JFrame {
 					String usuarioASerRemovido = JOptionPane.showInputDialog(null, "Qual usuario deseja remover?");
 					
 					if (usuarioASerRemovido != null){
-						//System.out.println("entrou");
+						
 						Boolean removido = false;
 						
 						for (int i = 0; i < usuarios.size(); i++) {

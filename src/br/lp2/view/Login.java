@@ -19,8 +19,9 @@ public class Login extends JFrame {
 	private int ALTURA = 210;
 	private int LARGURA = 250;
 	
-	// Campo responsaovel por armazenar o login atual
+	// Campo responsaovel por armazenar informacoes do login atual
 	private Usuario usuarioAtual;
+	private Boolean logou = false;
 
 	// Labels
 	private JLabel labelUsuario = new JLabel("Usuario");
@@ -34,7 +35,7 @@ public class Login extends JFrame {
 	private JButton logar = new JButton("Logar");
 	private JButton cancelar = new JButton("Cancelar");
 	
-	public Login(ArrayList<Usuario> listaUsuarios, JLabel usuario, JLabel vip) {
+	public Login(ArrayList<Usuario> listaUsuarios, JLabel usuario, JLabel vip, TelaPrincipal tela) {
 		// Configuracoes padrao
 		setTitle("Login");
 		setSize(LARGURA, ALTURA);
@@ -44,11 +45,22 @@ public class Login extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// Adicionando labels
-		//COLOQUEI USUÃ�RIO PARA NAO TER QUE FICAR DIGITANDO HORRORES REMOVER
+		
+		
+		
+		
+		
+		//COLOQUEI USUARIO PARA NAO TER QUE FICAR DIGITANDO HORRORES (REMOVER DEPOIS)
 		inputUsuario.setText("jonathan");
 		inputSenha.setText("pedro");
-		//
+		
+		
+		
+		
+		
+		
+		
+		// Adicionando labels
 		add(labelUsuario);
 		add(labelSenha);
 		labelUsuario.setBounds(10, 10, 200, 20);
@@ -73,7 +85,7 @@ public class Login extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Boolean logou = false;
+				logou = false;
 				Boolean userExiste = false;
 				
 				for (int i = 0; i < listaUsuarios.size(); i++) {
@@ -87,6 +99,7 @@ public class Login extends JFrame {
 						vip.setText("usuario VIP");
 						
 						setVisible(false);
+						tela.setVisible(true);
 						
 						logou = true;
 						userExiste = true;
@@ -112,6 +125,7 @@ public class Login extends JFrame {
 							}
 							
 							setVisible(false);
+							tela.setVisible(true);
 						}
 						else {							
 							JOptionPane.showMessageDialog(null, "Senha incorreta");
