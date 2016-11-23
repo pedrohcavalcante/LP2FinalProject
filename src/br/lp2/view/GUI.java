@@ -8,14 +8,19 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 import br.lp2.player.*;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import br.lp2.classes.Musica;
 import br.lp2.classes.Playlist;
 import br.lp2.classes.Usuario;
@@ -28,7 +33,11 @@ public class GUI extends JFrame {
 	JFileChooser jfile;
 	Component parent = null;
 	
-	
+	InputStream teste;
+	File p2Player;
+	ArrayList<File> arrayMusic = new ArrayList<File>();
+	private Player musicFile = null;
+	int cont = 0;
 	// Dimensoes da tela principal
 	private int ALTURA = 500;
 	private int LARGURA = 750;
@@ -239,6 +248,8 @@ public class GUI extends JFrame {
 		
 		play.addActionListener(new ActionListener() {
 			
+			private boolean playing;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
