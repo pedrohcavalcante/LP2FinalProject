@@ -18,8 +18,6 @@ import java.io.InputStream;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.border.Border;
 import javax.swing.*;
 
@@ -89,9 +87,9 @@ public class TelaPrincipal extends JFrame {
 	private JTextArea textAtualPlaylist = new JTextArea();
 	private JTextArea textPlaylists = new JTextArea();
 	
-	public TelaPrincipal() {
+	public TelaPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		jfile = new JFileChooser();
-		
+		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		// Metodo desponsavel por carregar os dados dos usuarios
 		carregarDados();
 		
