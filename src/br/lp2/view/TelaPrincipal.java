@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.BreakIterator;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -176,17 +177,22 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				jfile.showOpenDialog(parent);
 				
-				System.out.println("Caminho: " + jfile.getSelectedFile().getAbsolutePath());
-				System.out.println("Nome do arquivo: " + jfile.getSelectedFile().getName());
+				try{
+					System.out.println("Caminho: " + jfile.getSelectedFile().getAbsolutePath());
+					System.out.println("Nome do arquivo: " + jfile.getSelectedFile().getName());
+				}catch (NullPointerException exx){
+					
+				}
 				
-				// Checa se o arquivo é .mp3
+				
+				// Checa se o arquivo ï¿½ .mp3
 				if (!jfile.getSelectedFile().getName().substring(jfile.getSelectedFile().getName().length() - 4).equals(".mp3")) {
 					JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
 				}
 				else {
-					// Checa a se o nome ou caminho tem o caractere "¬"
-					if (jfile.getSelectedFile().getName().split("¬").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("¬").length > 1) {
-						JOptionPane.showMessageDialog(null, "Existe um '¬' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
+					// Checa a se o nome ou caminho tem o caractere "ï¿½"
+					if (jfile.getSelectedFile().getName().split("ï¿½").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("ï¿½").length > 1) {
+						JOptionPane.showMessageDialog(null, "Existe um 'ï¿½' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
 					}
 					else {
 						// Checa se a musica eh repetida
@@ -288,22 +294,26 @@ public class TelaPrincipal extends JFrame {
 				if (login.getUsuarioAtual().getVip() == true) {
 					String usuarioASerRemovido = JOptionPane.showInputDialog(null, "Qual usuario deseja remover?");
 					
-					Boolean removido = false;
+					if (JOptionPane.CANCEL_OPTION == 2){
+						//System.out.println("entrou");
+					}else{
 					
-					for (int i = 0; i < usuarios.size(); i++) {
-						if (usuarios.get(i).getUser().equals(usuarioASerRemovido)) {
-							usuarios.remove(i);
-							removido = true;
-							JOptionPane.showMessageDialog(null, "Usuario " + usuarioASerRemovido + " removido.");
-							break;
+						Boolean removido = false;
+						
+						for (int i = 0; i < usuarios.size(); i++) {
+							if (usuarios.get(i).getUser().equals(usuarioASerRemovido)) {
+								usuarios.remove(i);
+								removido = true;
+								JOptionPane.showMessageDialog(null, "Usuario " + usuarioASerRemovido + " removido.");
+								break;
+							}
+						}
+						
+						if (removido == false) {
+							JOptionPane.showMessageDialog(null, "Nao foi possivel remover o usuario " + usuarioASerRemovido);
 						}
 					}
-					
-					if (removido == false) {
-						JOptionPane.showMessageDialog(null, "Nao foi possivel remover o usuario " + usuarioASerRemovido);
-					}
-				}
-				else {
+				}else{
 					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem remover outros usuarios.");
 				}
 			}
@@ -330,7 +340,7 @@ public class TelaPrincipal extends JFrame {
 			
 			// Escrita no arquivo
 			for(Usuario usuario : usuarios) {
-				writerUser.write(usuario.getUser() + "¬" + usuario.getSenha() + "¬" + usuario.getVip());
+				writerUser.write(usuario.getUser() + "ï¿½" + usuario.getSenha() + "ï¿½" + usuario.getVip());
 				writerUser.newLine();
 			}
 
@@ -355,7 +365,7 @@ public class TelaPrincipal extends JFrame {
 			
 			// Escrita no arquivo
 			for(Musica musica : musicas) {
-				writerMusica.write(musica.getNome() + "¬" + musica.getCaminho());
+				writerMusica.write(musica.getNome() + "ï¿½" + musica.getCaminho());
 				writerMusica.newLine();
 			}
 		}
@@ -385,7 +395,7 @@ public class TelaPrincipal extends JFrame {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				
-				String[] dados = sCurrentLine.split("¬");
+				String[] dados = sCurrentLine.split("ï¿½");
 				
 				if (dados[2].equals("true")) {
 					usuarios.add(new Usuario(dados[0], dados[1], true));
@@ -420,7 +430,7 @@ public class TelaPrincipal extends JFrame {
 
 			while ((sCurrentLine2 = br2.readLine()) != null) {
 				
-				String[] dados2 = sCurrentLine2.split("¬");
+				String[] dados2 = sCurrentLine2.split("ï¿½");
 				
 				musicas.add(new Musica(dados2[0], dados2[1]));
 				
