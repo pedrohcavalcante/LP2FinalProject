@@ -45,6 +45,10 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// Adicionando labels
+		//COLOQUEI USUÁRIO PARA NAO TER QUE FICAR DIGITANDO HORRORES REMOVER
+		inputUsuario.setText("jonathan");
+		inputSenha.setText("pedro");
+		//
 		add(labelUsuario);
 		add(labelSenha);
 		labelUsuario.setBounds(10, 10, 200, 20);
