@@ -204,6 +204,7 @@ public class GUI extends JFrame {
 						}
 						if (ehRepetida == false) {
 							musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
+							
 						}
 					}
 					
@@ -447,7 +448,7 @@ public class GUI extends JFrame {
 			try {
 			System.out.println("chegou aqui222");
 			//System.out.println("CAMINHO " + arrayMusic.get(0).getPath());
-			teste = new FileInputStream(arrayMusic.get(cont).getAbsolutePath());
+			teste = new FileInputStream(musicas.get(cont).getCaminho());
 			//System.out.println("GETPATH() " + file.getPath() + " GETABSOLUTPATH() "+ file.getAbsolutePath());
 				musicFile = new Player(teste);
 				musicFile.play();
