@@ -68,7 +68,7 @@ public class TelaPrincipal extends JFrame {
 	private JButton addMusica = new JButton("Adicionar musica");
 	private JButton addPasta = new JButton("Adicionar pasta");
 	private JButton play = new JButton("Play");
-	private JButton pause = new JButton("Pause");
+	private JButton stop = new JButton("Stop");
 	private JButton proximaMusica = new JButton(">>");
 	private JButton anteriorMusica = new JButton("<<");
 	private JButton addPlaylist = new JButton("Adicionar playlist");
@@ -126,7 +126,7 @@ public class TelaPrincipal extends JFrame {
 		add(addPasta);
 		add(addPasta);
 		add(play);
-		add(pause);
+		add(stop);
 		add(proximaMusica);
 		add(anteriorMusica);
 		add(addPlaylist);
@@ -134,7 +134,7 @@ public class TelaPrincipal extends JFrame {
 		addMusica.setBounds(10, 10, 140, 30);
 		addPasta.setBounds(10, 50, 140, 30);
 		play.setBounds(70, ALTURA - 90, 100, 30);
-		pause.setBounds(180, ALTURA - 90, 100, 30);
+		stop.setBounds(180, ALTURA - 90, 100, 30);
 		proximaMusica.setBounds(290, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
 		addPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
@@ -242,7 +242,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MusicPlayer musicPlayer = new MusicPlayer(musicas);
 				
-				pause.setEnabled(true);
+				stop.setEnabled(true);
 				play.setEnabled(false);
 				
 				playing = true;
