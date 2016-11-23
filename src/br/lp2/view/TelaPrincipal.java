@@ -18,8 +18,10 @@ import java.io.InputStream;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.border.Border;
+import javax.swing.*;
 
 import MusicPlayer.MusicPlayer;
 import javazoom.jl.decoder.JavaLayerException;
@@ -190,9 +192,9 @@ public class TelaPrincipal extends JFrame {
 					JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
 				}
 				else {
-					// Checa a se o nome ou caminho tem o caractere "¬"
-					if (jfile.getSelectedFile().getName().split("¬").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("¬").length > 1) {
-						JOptionPane.showMessageDialog(null, "Existe um '¬' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
+					// Checa a se o nome ou caminho tem o caractere "&"
+					if (jfile.getSelectedFile().getName().split("&").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("&").length > 1) {
+						JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
 					}
 					else {
 						// Checa se a musica eh repetida
@@ -340,7 +342,7 @@ public class TelaPrincipal extends JFrame {
 			
 			// Escrita no arquivo
 			for(Usuario usuario : usuarios) {
-				writerUser.write(usuario.getUser() + "¬" + usuario.getSenha() + "¬" + usuario.getVip());
+				writerUser.write(usuario.getUser() + "&" + usuario.getSenha() + "&" + usuario.getVip());
 				writerUser.newLine();
 			}
 
@@ -365,7 +367,7 @@ public class TelaPrincipal extends JFrame {
 			
 			// Escrita no arquivo
 			for(Musica musica : musicas) {
-				writerMusica.write(musica.getNome() + "¬" + musica.getCaminho());
+				writerMusica.write(musica.getNome() + "&" + musica.getCaminho());
 				writerMusica.newLine();
 			}
 		}
@@ -395,7 +397,7 @@ public class TelaPrincipal extends JFrame {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				
-				String[] dados = sCurrentLine.split("¬");
+				String[] dados = sCurrentLine.split("&");
 				
 				if (dados[2].equals("true")) {
 					usuarios.add(new Usuario(dados[0], dados[1], true));
@@ -430,7 +432,7 @@ public class TelaPrincipal extends JFrame {
 
 			while ((sCurrentLine2 = br2.readLine()) != null) {
 				
-				String[] dados2 = sCurrentLine2.split("¬");
+				String[] dados2 = sCurrentLine2.split("&");
 				
 				musicas.add(new Musica(dados2[0], dados2[1]));
 				
