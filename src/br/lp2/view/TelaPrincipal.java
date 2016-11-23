@@ -296,10 +296,8 @@ public class TelaPrincipal extends JFrame {
 				if (login.getUsuarioAtual().getVip() == true) {
 					String usuarioASerRemovido = JOptionPane.showInputDialog(null, "Qual usuario deseja remover?");
 					
-					if (JOptionPane.CANCEL_OPTION == 2){
+					if (usuarioASerRemovido != null){
 						//System.out.println("entrou");
-					}else{
-					
 						Boolean removido = false;
 						
 						for (int i = 0; i < usuarios.size(); i++) {
