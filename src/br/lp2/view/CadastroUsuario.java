@@ -79,12 +79,12 @@ public class CadastroUsuario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Insira usuario e senha");
 				}
 				// Checa se o usuario inserido tem espacos
-				else if (inputUsuario.getText().split("¬").length > 1 ){
-					JOptionPane.showMessageDialog(null, "O campo de usuario nao pode conter '¬'");
+				else if (inputUsuario.getText().split("&").length > 1 ){
+					JOptionPane.showMessageDialog(null, "O campo de usuario nao pode conter '&'");
 				}
 				// Checa se a senha inserida tem espacos
-				else if (inputSenha.getText().split("¬").length > 1 ){
-					JOptionPane.showMessageDialog(null, "O campo de senha nao pode conter '¬'");
+				else if (inputSenha.getText().split("&").length > 1 ){
+					JOptionPane.showMessageDialog(null, "O campo de senha nao pode conter '&'");
 				}
 				else {
 					Boolean ehRepetido = false;
@@ -102,6 +102,7 @@ public class CadastroUsuario extends JFrame {
 						
 						if (vipCheckbox.isSelected()) {
 							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), true);
+							
 						}
 						else {
 							usuario = new Usuario(inputUsuario.getText(), inputSenha.getText(), false);
