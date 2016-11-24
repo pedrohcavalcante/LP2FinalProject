@@ -20,6 +20,7 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 
 import MusicPlayer.MusicPlayer;
@@ -246,6 +247,25 @@ public class TelaPrincipal extends JFrame {
 					JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
 				}
 				
+			}
+		});
+		
+		adicionarPasta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(parent);
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+				String diretorio = chooser.getAbsolutePath();
+				// TODO Auto-generated method stub
+				File file = new File(diretorio);
+				File afile[] = file.listFiles();
+				int i = 0;
+				for (int j = afile.length; i < j; i++) {
+					File arquivos = afile[i];
+					System.out.println(arquivos.getName());
+				}
 			}
 		});
 		
