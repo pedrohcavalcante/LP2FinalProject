@@ -257,10 +257,10 @@ public class TelaPrincipal extends JFrame {
 				final JFileChooser chooser = new JFileChooser();
 				chooser.showOpenDialog(parent);
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-				String diretorio = chooser.getAbsolutePath();
+				File diretorio = chooser.getCurrentDirectory();
 				// TODO Auto-generated method stub
-				File file = new File(diretorio);
-				File afile[] = file.listFiles();
+				
+				File afile[] = diretorio.listFiles();
 				int i = 0;
 				for (int j = afile.length; i < j; i++) {
 					File arquivos = afile[i];
