@@ -55,7 +55,7 @@ public class GerenciamentoPlaylist extends JFrame {
 		GridLayout gridLayout = new GridLayout(6,1, 10, 10);
 		setLayout(gridLayout);
 		
-		// Cria um array com os nomes das playlists. Ser� usado pelo ComboBox.
+		// Cria um array com os nomes das playlists. Sera usado pelo ComboBox.
 		arrayNomePlaylist = new String[listaPlaylists.size()];
 		for (int i = 0; i < listaPlaylists.size(); i++) {
 			arrayNomePlaylist[i] = listaPlaylists.get(i).getNome();
