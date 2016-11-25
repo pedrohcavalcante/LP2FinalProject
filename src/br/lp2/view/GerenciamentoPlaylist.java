@@ -55,7 +55,7 @@ public class GerenciamentoPlaylist extends JFrame {
 		GridLayout gridLayout = new GridLayout(6,1, 10, 10);
 		setLayout(gridLayout);
 		
-		// Cria um array com os nomes das playlists. Será usado pelo ComboBox.
+		// Cria um array com os nomes das playlists. Serï¿½ usado pelo ComboBox.
 		arrayNomePlaylist = new String[listaPlaylists.size()];
 		for (int i = 0; i < listaPlaylists.size(); i++) {
 			arrayNomePlaylist[i] = listaPlaylists.get(i).getNome();
@@ -105,13 +105,18 @@ public class GerenciamentoPlaylist extends JFrame {
 				Boolean encontrou = false;
 				
 				// Procura a inputada na playlists selecionada
-				for (int i = 0; i < listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().size(); i++) {
-					if (inputMusicas.getText().equals(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i).getNome())) {
-						// Remove a musica da playlist adequada
-						listaPlaylists.get(seletorPlaylist.getSelectedIndex()).removerMusica(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i));
-						encontrou = true;
-						break;
+				try{
+					for (int i = 0; i < listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().size(); i++) {
+				
+						if (inputMusicas.getText().equals(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i).getNome())) {
+							// Remove a musica da playlist adequada
+							listaPlaylists.get(seletorPlaylist.getSelectedIndex()).removerMusica(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i));
+							encontrou = true;
+							break;
+						}
 					}
+				} catch (ArrayIndexOutOfBoundsException idx0){
+				
 				}
 				
 				if (encontrou == false) {
