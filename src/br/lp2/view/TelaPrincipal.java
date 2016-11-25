@@ -50,8 +50,11 @@ public class TelaPrincipal extends JFrame {
 	// Janela de cadastro de usuario
 	private CadastroUsuario cadastroUsuario;
 	
-	// Janela de listagem de musicas
-	private ListaMusicas listaMusicas;
+	// Janela de gerenciar playlists
+	private GerenciamentoPlaylist gerenciamentoPlaylist;
+	
+	// Janela de login
+	private Login login;
 	
 	// Classe responsavel por tocar as musicas
 	private MusicPlayer musicPlayer;
@@ -65,6 +68,7 @@ public class TelaPrincipal extends JFrame {
 	// Menu items
 	private JMenuItem removerMusica = new JMenuItem("Remover musica");
 	private JMenuItem removerPlaylist = new JMenuItem("Remover playlist");
+	private JMenuItem gerenciarPlaylist = new JMenuItem("Gerenciar playlist");
 	private JMenuItem adicionarUsuario = new JMenuItem("Cadastrar usuarios");
 	private JMenuItem removerUsuario = new JMenuItem("Remover usuario");
 
@@ -100,8 +104,7 @@ public class TelaPrincipal extends JFrame {
 		// Metodo desponsavel por carregar os dados dos usuarios
 		carregarDados();
 		
-		cadastroUsuario = new CadastroUsuario(usuarios);
-		listaMusicas = new ListaMusicas(musicas);
+		cadastroUsuario = new CadastroUsuario(usuarios);		
 		
 		// Configuracoes padrao
 		setTitle("Player de musica");
@@ -120,6 +123,7 @@ public class TelaPrincipal extends JFrame {
 		// Adicionando itens aos menus
 		menuMusicas.add(removerMusica);
 		menuPlaylists.add(removerPlaylist);
+		menuPlaylists.add(gerenciarPlaylist);
 		menuUsuarios.add(adicionarUsuario);
 		menuUsuarios.add(removerUsuario);
 		
@@ -174,7 +178,8 @@ public class TelaPrincipal extends JFrame {
 		textPlaylists.setEditable(false);
 		
 		// Login inicial
-		Login login = new Login(usuarios, labelUsuario, labelVip, this);
+		login = new Login(usuarios, labelUsuario, labelVip, this);
+		
 		// Eventos
 		adicionarMusica.addActionListener(new ActionListener() {
 			
@@ -323,6 +328,17 @@ public class TelaPrincipal extends JFrame {
 				else {
 					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem excluir playlists.");
 				}
+			}
+		});
+		gerenciarPlaylist.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// instancia gerenciador de playlist
+				gerenciamentoPlaylist = new GerenciamentoPlaylist(playlists, musicas, login.getUsuarioAtual());
+				
+				
+				
 			}
 		});
 		
