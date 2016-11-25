@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.lp2.classes.Musica;
@@ -66,7 +67,6 @@ public class GerenciamentoPlaylist extends JFrame {
 		// Adiciona elementos no gridLayout
 		add(labelPlaylist);
 		add(seletorPlaylist);
-		//add(inputPlaylist);
 		add(labelMusica);
 		add(inputMusicas);
 		add(adicionarMusica);
@@ -77,15 +77,50 @@ public class GerenciamentoPlaylist extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				Boolean encontrou = false;
 				
+				// Procura a musica inputada no ArrayList de musicas
+				for (int i = 0; i < listaMusicas.size(); i++) {
+					if (inputMusicas.getText().equals(listaMusicas.get(i).getNome())) {
+						// Adiciona a musica na playlist adequada
+						listaPlaylists.get(seletorPlaylist.getSelectedIndex()).adicionarMusica(listaMusicas.get(i));
+						encontrou = true;
+						break;
+					}
+				}
+				
+				if (encontrou == false) {
+					JOptionPane.showMessageDialog(null, "Esta musica nao esta na biblioteca");
+				}
+				else {
+					// Mensagem de "adicionou musica".
+					System.out.println("Adicionou =D");
+				}
 			}
 		});
 		removerMusica.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				Boolean encontrou = false;
+				
+				// Procura a inputada na playlists selecionada
+				for (int i = 0; i < listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().size(); i++) {
+					if (inputMusicas.getText().equals(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i).getNome())) {
+						// Remove a musica da playlist adequada
+						listaPlaylists.get(seletorPlaylist.getSelectedIndex()).removerMusica(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i));
+						encontrou = true;
+						break;
+					}
+				}
+				
+				if (encontrou == false) {
+					JOptionPane.showMessageDialog(null, "Esta musica nao esta na playlist selecionada");
+				}
+				else {
+					// Mensagem de "removeu musica".
+					System.out.println("Removeu =D");
+				}
 				
 			}
 		});

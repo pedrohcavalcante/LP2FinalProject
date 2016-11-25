@@ -7,7 +7,7 @@ public class Playlist {
 	private String nome;
 	private String dono;
 	private String arquivo;
-	private ArrayList<Musica> musicas;
+	private ArrayList<Musica> musicas = new ArrayList<Musica>();
 	
 	private static int id = 0;
 	
