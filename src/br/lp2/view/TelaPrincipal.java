@@ -81,6 +81,7 @@ public class TelaPrincipal extends JFrame {
 	private JButton proximaMusica = new JButton(">>");
 	private JButton anteriorMusica = new JButton("<<");
 	private JButton adicionarPlaylist = new JButton("Adicionar playlist");
+	private JButton selecionarPlaylist = new JButton("Selecionar playlist");
 	
 	// Labels
 	private JLabel labelMusicas = new JLabel("Musicas");
@@ -139,6 +140,7 @@ public class TelaPrincipal extends JFrame {
 		add(proximaMusica);
 		add(anteriorMusica);
 		add(adicionarPlaylist);
+		add(selecionarPlaylist);
 		// Setando posicao dos botoes
 		adicionarMusica.setBounds(10, 10, 140, 30);
 		adicionarPasta.setBounds(10, 50, 140, 30);
@@ -148,6 +150,7 @@ public class TelaPrincipal extends JFrame {
 		proximaMusica.setBounds(290, ALTURA - 90, 50, 30);
 		anteriorMusica.setBounds(10, ALTURA - 90, 50, 30);
 		adicionarPlaylist.setBounds(LARGURA - 160, ALTURA - 90, 140, 30);
+		selecionarPlaylist.setBounds(LARGURA - 160, 145, 140, 30);
 		
 		// Adicionando labels
 		add(labelMusicas);
