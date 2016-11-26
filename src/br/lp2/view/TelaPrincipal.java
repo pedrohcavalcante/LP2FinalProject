@@ -97,7 +97,7 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
 		// variavel de insercao de musicas
-		jfile = new JFileChooser();
+		jfile = new JFileChooser(".");
 		
 		// Configuracao do layout dos botoes
 		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -197,31 +197,36 @@ public class TelaPrincipal extends JFrame {
 				
 				
 				// Checa se o arquivo eh .mp3
-				if (!jfile.getSelectedFile().getName().substring(jfile.getSelectedFile().getName().length() - 4).equals(".mp3")) {
+				try{
+					if (!jfile.getSelectedFile().getName().substring(jfile.getSelectedFile().getName().length() - 4).equals(".mp3")) {
+				
 					JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
 				}
 				else {
 					// Checa a se o nome ou caminho tem o caractere "&"
-					if (jfile.getSelectedFile().getName().split("&").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("&").length > 1) {
-						JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
-					}
-					else {
-						// Checa se a musica eh repetida
-						Boolean ehRepetida = false;
-						
-						for (int i = 0; i < musicas.size(); i++) {
-							// Eh repetida
-							if (musicas.get(i).getNome().equals(jfile.getSelectedFile().getName())) {
-								ehRepetida = true;
-								break;
-							}						
+						if (jfile.getSelectedFile().getName().split("&").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("&").length > 1) {
+							JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
 						}
-						if (ehRepetida == false) {
-							musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
+						else {
+							// Checa se a musica eh repetida
+							Boolean ehRepetida = false;
 							
-							textMusicas.append("> " + jfile.getSelectedFile().getName() + "\n");
-						}
-					}	
+							for (int i = 0; i < musicas.size(); i++) {
+								// Eh repetida
+								if (musicas.get(i).getNome().equals(jfile.getSelectedFile().getName())) {
+									ehRepetida = true;
+									break;
+								}						
+							}
+							if (ehRepetida == false) {
+								musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
+								
+								textMusicas.append("> " + jfile.getSelectedFile().getName() + "\n");
+							}
+						}	
+					}
+				}catch(NullPointerException npe){
+					JOptionPane.showMessageDialog(null, "Nenhuma música informada");
 				}
 			}
 		});
