@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -260,17 +261,17 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(parent);
+				int status = chooser.showOpenDialog(parent);
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 				File diretorio = chooser.getCurrentDirectory();
 				// TODO Auto-generated method stub
-				
 				File afile[] = diretorio.listFiles();
 				int i = 0;
 				for (int j = afile.length; i < j; i++) {
 					File arquivos = afile[i];
 					System.out.println(arquivos.getName());
-				}
+				}	
+		
 			}
 		});
 		
