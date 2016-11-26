@@ -73,6 +73,8 @@ public class TelaPrincipal extends JFrame {
 	private JMenuItem adicionarUsuario = new JMenuItem("Cadastrar usuarios");
 	private JMenuItem removerUsuario = new JMenuItem("Remover usuario");
 
+	boolean exists = false;
+	
 	// Botoes
 	private JButton adicionarMusica = new JButton("Adicionar musica");
 	private JButton adicionarPasta = new JButton("Adicionar pasta");
@@ -284,7 +286,6 @@ public class TelaPrincipal extends JFrame {
 		});
 		
 		adicionarPlaylist.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -353,12 +354,24 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
-		adicionarPlaylist.addActionListener(new ActionListener() {
+		
+		selecionarPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				int aux;
 				
+				String playlistSelected = JOptionPane.showInputDialog("Digite o nome da Playlist");
+				for (int i = 0; i < playlists.size();i++){
+					if (playlistSelected.equals(playlists.get(i).getNome())){
+						exists = true;
+						aux = i;
+						musicas = (playlists.get(i).getMusicas());
+					}else{
+						exists = false;
+					}
+				}
 			}
 		});
 		play.addActionListener(new ActionListener() {
