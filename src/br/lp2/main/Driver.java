@@ -1,10 +1,13 @@
 package br.lp2.main;
 import java.awt.Component;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.apache.commons.io.FileUtils;
 
 import br.lp2.classes.Musica;
 import br.lp2.view.*;
