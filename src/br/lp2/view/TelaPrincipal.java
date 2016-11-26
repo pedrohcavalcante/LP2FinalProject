@@ -476,7 +476,38 @@ public class TelaPrincipal extends JFrame {
 		}
 		
 		
-		// TODO: persistir dados das playlists
+		// Persiste os dados das playlists
+		for (Playlist playlist : playlists) {
+			BufferedWriter writerPlaylist = null;
+			
+			try {
+				File dadosPlaylist = new File("data/playlists/" + playlist.getArquivo());
+
+				writerPlaylist = new BufferedWriter(new FileWriter(dadosPlaylist));
+
+				// Escrita no arquivo
+				writerPlaylist.write(playlist.getNome());
+				writerPlaylist.newLine();
+				writerPlaylist.write(playlist.getDono());
+				writerPlaylist.newLine();
+				for(Musica musica : playlist.getMusicas()) {
+					writerPlaylist.write(musica.getNome());
+					writerPlaylist.newLine();
+				}
+
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					writerPlaylist.close();
+				}
+				catch (Exception e) {
+				}
+			}
+		}
+		
 	}
 
 	public void carregarDados() {
