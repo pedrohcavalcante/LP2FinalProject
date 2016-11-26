@@ -284,10 +284,13 @@ public class TelaPrincipal extends JFrame {
 					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
 					
 					// Cria e adiciona uma nova playlist � lista
-					playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
+					if (nomeNovaPlaylist != null){
+						playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
+						
+						// Imprime a nova playlist na lista de playlists
+						textPlaylists.append("> " + nomeNovaPlaylist + "\n");
+					}
 					
-					// Imprime a nova playlist na lista de playlists
-					textPlaylists.append("> " + nomeNovaPlaylist + "\n");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Somente usuarios VIPs podem criar playlists.");
