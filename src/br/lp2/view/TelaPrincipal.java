@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.BreakIterator;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.apache.commons.io.FileUtils;
+
 import javax.swing.*;
 
 import MusicPlayer.MusicPlayer;
@@ -235,7 +239,7 @@ public class TelaPrincipal extends JFrame {
 						}	
 					}
 				}catch(NullPointerException npe){
-					JOptionPane.showMessageDialog(null, "Nenhuma m�sica informada");
+					JOptionPane.showMessageDialog(null, "Nenhuma música informada");
 				}
 			}
 		});
@@ -297,7 +301,7 @@ public class TelaPrincipal extends JFrame {
 					// Recebe o nome da nova playlist do usuario
 					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
 					
-					// Cria e adiciona uma nova playlist � lista
+					// Cria e adiciona uma nova playlist ï¿½ lista
 					if (nomeNovaPlaylist != null){
 						playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
 						
@@ -520,6 +524,16 @@ public class TelaPrincipal extends JFrame {
 		
 		
 		// Persiste os dados das playlists
+		
+		// Deleta todos os arquivos dentro da pasta de playlists antes de salvar os atuais dados de playlist
+		File pastaPlaylists = new File("data/playlists");
+		try {
+			FileUtils.cleanDirectory(pastaPlaylists);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} 
+		
+		// Cria um arquivo .txt para cada playlist
 		for (Playlist playlist : playlists) {
 			BufferedWriter writerPlaylist = null;
 			
@@ -622,7 +636,65 @@ public class TelaPrincipal extends JFrame {
 			}
 		}
 		
-		// TODO: carregar dados das playlists		
+		// Garrega os dados das playlists
+		File folder = new File("data/playlists");
+		File[] arrayFiles = folder.listFiles();
+
+		for (int i = 0; i < arrayFiles.length; i++) {
+
+			BufferedReader br3 = null;
+
+			try {
+				String sCurrentLine3;
+				
+				br3 = new BufferedReader(new FileReader(arrayFiles[i].getPath()));
+				
+				String nomePlaylist = br3.readLine();
+				String donoPlaylist = br3.readLine();
+				
+				Playlist novaPlaylist = new Playlist(nomePlaylist, donoPlaylist);
+				
+				// Mensagem para debugar
+				System.out.println("Playlist <" + nomePlaylist + "> de dono <" + donoPlaylist + "> carregada.");
+				
+				// Escreve as playlists no Textarea de playlists
+				textPlaylists.append("> " + nomePlaylist + "\n");
+				
+				playlists.add(novaPlaylist);
+				
+				while ((sCurrentLine3 = br3.readLine()) != null) {
+					String musica = sCurrentLine3;
+					
+					Boolean encontrou = false;
+					
+					// Procura a musica inputada no ArrayList de musicas
+					for (int j = 0; j < musicas.size(); j++) {
+						if (musica.equals(musicas.get(i).getNome())) {
+							// Adiciona a musica na playlist adequada
+							novaPlaylist.adicionarMusica(musicas.get(i));
+							encontrou = true;
+							break;
+						}
+					}
+					
+					if (encontrou == false) {
+						JOptionPane.showMessageDialog(null, "Erro ao carreagar dados da playlist " + nomePlaylist + ". A musica " + musica + " nao esta na biblioteca e nao pode ser adicionada a playlist.");
+					}
+
+				}
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					if (br3 != null)br3.close();
+				}
+				catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 
 }
