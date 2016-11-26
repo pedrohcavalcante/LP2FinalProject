@@ -58,7 +58,7 @@ public class TelaPrincipal extends JFrame {
 	private Login login;
 	
 	// Classe responsavel por tocar as musicas
-	private MusicPlayer musicPlayer;
+	private MusicPlayer musicPlayer = new MusicPlayer(musicas);
 	
 	// Menu bar
 	private JMenuBar menuBar = new JMenuBar();
@@ -349,9 +349,6 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// instancia gerenciador de playlist
 				gerenciamentoPlaylist = new GerenciamentoPlaylist(playlists, musicas, login.getUsuarioAtual());
-				
-				
-				
 			}
 		});
 		
@@ -374,6 +371,17 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
+	/*	proximaMusica.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				play.setEnabled(true);
+				musicPlayer.close();
+				musicPlayer.setContador(musicPlayer.getContador()+1);
+				musicPlayer.start();
+			}
+		});*/
 		play.addActionListener(new ActionListener() {
 			
 			private boolean playing;
@@ -381,7 +389,6 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				musicPlayer = new MusicPlayer(musicas);
-				
 				stop.setEnabled(true);
 				play.setEnabled(false);
 				

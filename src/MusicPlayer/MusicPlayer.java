@@ -37,4 +37,12 @@ public class MusicPlayer extends Thread{
 		// TODO Auto-generated method stub
 		musicFile.close();
 	}
+
+	public int getContador() {
+		return contador;
+	}
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
 }
