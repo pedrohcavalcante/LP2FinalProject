@@ -17,7 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.lp2.classes.Usuario;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que abre a janela cadastro de usuario 
+ */
 @SuppressWarnings("serial")
 public class CadastroUsuario extends JFrame {
 	

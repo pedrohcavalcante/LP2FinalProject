@@ -8,7 +8,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import br.lp2.classes.Musica;
 import br.lp2.view.*;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe principal que executa a janela
+ */
 @SuppressWarnings("unused")
 public class Driver {
 	

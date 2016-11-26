@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import br.lp2.classes.Musica;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que instancia uma música e coloca-a para tocar, criando uma thread para evitar que a execucao da musica trave a execucao
+ */
 public class MusicPlayer extends Thread{
 	
 	private InputStream inputStream;

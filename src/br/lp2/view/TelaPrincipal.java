@@ -31,7 +31,11 @@ import br.lp2.classes.Musica;
 import br.lp2.classes.Playlist;
 import br.lp2.classes.Usuario;
 import br.lp2.main.*;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que cria a tela principal do projeto
+ */
 @SuppressWarnings({ "serial", "unused" })
 public class TelaPrincipal extends JFrame {
 	

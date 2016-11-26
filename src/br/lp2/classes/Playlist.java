@@ -1,7 +1,11 @@
 package br.lp2.classes;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que armazena o nome, o usuario dono e o arquivo de musica em uma playlist
+ */
 public class Playlist {
 	// Atributos
 	private String nome;

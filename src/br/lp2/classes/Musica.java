@@ -1,5 +1,9 @@
 package br.lp2.classes;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que instancia uma objeto musica, armazenando o nome e o caminho do arquivo
+ */
 public class Musica {
 	// Atributos
 	private String nome;

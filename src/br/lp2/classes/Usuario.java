@@ -1,5 +1,9 @@
 package br.lp2.classes;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que define um usuario com nome de usuario, senha e acesso vip
+ */
 public class Usuario {
 	// Atributos
 	private String user;

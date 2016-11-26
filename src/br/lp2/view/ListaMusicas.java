@@ -8,7 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import br.lp2.classes.Musica;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que faz a lista de musicas aparecer no sistema
+ */
 @SuppressWarnings("serial")
 public class ListaMusicas extends JFrame {
 	

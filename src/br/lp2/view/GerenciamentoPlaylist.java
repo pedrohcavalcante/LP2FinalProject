@@ -15,7 +15,11 @@ import javax.swing.JTextField;
 import br.lp2.classes.Musica;
 import br.lp2.classes.Playlist;
 import br.lp2.classes.Usuario;
-
+/**
+ * 
+ * @author Jonathan Rocha, Pedro Henrique
+ * Classe que faz o gerenciamento e instanciacao de uma playlist
+ */
 @SuppressWarnings("serial")
 public class GerenciamentoPlaylist extends JFrame {
 	
