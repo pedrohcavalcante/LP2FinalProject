@@ -353,7 +353,14 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
-		
+		adicionarPlaylist.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		play.addActionListener(new ActionListener() {
 			
 			private boolean playing;
