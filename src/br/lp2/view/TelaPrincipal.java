@@ -311,28 +311,33 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String musicaASerRemovida = JOptionPane.showInputDialog(null, "Qual musica deseja remover?");
-				
-				Boolean removida = false;
-				
-				for (int i = 0; i < musicas.size(); i++) {
-					if (musicas.get(i).getNome().equals(musicaASerRemovida)) {
-						musicas.remove(i);
-						removida = true;
-						JOptionPane.showMessageDialog(null, "Musica " + musicaASerRemovida + " removida.");
-						
-						textMusicas.setText("");
-						
-						for (int j = 0; j < musicas.size(); j++) {
-							textMusicas.append("> " + musicas.get(j).getNome() + "\n");
+
+				if (musicaASerRemovida != null){
+					Boolean removida = false;
+					for (int i = 0; i < musicas.size(); i++) {
+						if (musicas.get(i).getNome().equals(musicaASerRemovida)) {
+							musicas.remove(i);
+							removida = true;
+							JOptionPane.showMessageDialog(null, "Musica " + musicaASerRemovida + " removida.");
+
+							textMusicas.setText("");
+							
+							for (int j = 0; j < musicas.size(); j++) {
+								textMusicas.append("> " + musicas.get(j).getNome() + "\n");
+							}
+							
+							break;
 						}
-						
-						break;
 					}
+					
+					if (removida == false) {
+						JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
+					}
+				}else{
+					
 				}
 				
-				if (removida == false) {
-					JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
-				}
+				
 				
 			}
 		});
