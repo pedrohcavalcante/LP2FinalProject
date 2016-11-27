@@ -397,6 +397,7 @@ public class TelaPrincipal extends JFrame {
 						exists = true;
 						aux = i;
 						musicas = (playlists.get(i).getMusicas());
+						textAtualPlaylist.append("> " + playlists.get(i).getMusicas().get(i).getNome());
 					}else{
 						exists = false;
 					}
