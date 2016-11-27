@@ -28,7 +28,7 @@ public class Playlist {
 		arquivo = "playlist_" + id + ".txt";
 		id++;
 		
-		System.out.println("Playlist com nome <" + nome + "> e dono <" + dono + "> e arquivo <" + arquivo + "> criada.");
+		//System.out.println("Playlist com nome <" + nome + "> e dono <" + dono + "> e arquivo <" + arquivo + "> criada.");
 	}
 	
 	// Metodos

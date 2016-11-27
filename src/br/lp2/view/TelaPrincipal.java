@@ -708,7 +708,7 @@ public class TelaPrincipal extends JFrame {
 				}
 				
 				// mensagem para debugar
-				System.out.println("Usuario <" + dados[0] + "> com senha <" + dados[1] + "> e VIP <" + dados[2] + "> carregado.");
+				//System.out.println("Usuario <" + dados[0] + "> com senha <" + dados[1] + "> e VIP <" + dados[2] + "> carregado.");
 			}
 		}
 		catch (IOException e) {
@@ -738,7 +738,7 @@ public class TelaPrincipal extends JFrame {
 				musicas.add(new Musica(dados2[0], dados2[1]));
 				
 				// mensagem para debugar
-				System.out.println("Musica <" + dados2[0] + "> com caminho <" + dados2[1] + "> carregada.");
+				//System.out.println("Musica <" + dados2[0] + "> com caminho <" + dados2[1] + "> carregada.");
 			
 				// Escreve as musicas no TextArea de musicas
 				textMusicas.append("> " + dados2[0] + "\n");
@@ -775,7 +775,7 @@ public class TelaPrincipal extends JFrame {
 				Playlist novaPlaylist = new Playlist(nomePlaylist, donoPlaylist);
 				
 				// Mensagem para debugar
-				System.out.println("Playlist <" + nomePlaylist + "> de dono <" + donoPlaylist + "> carregada.");
+				//System.out.println("Playlist <" + nomePlaylist + "> de dono <" + donoPlaylist + "> carregada.");
 				
 				playlists.add(novaPlaylist);
 				

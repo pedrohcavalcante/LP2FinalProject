@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import br.lp2.classes.Musica;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -49,7 +51,8 @@ public class MusicPlayer extends Thread{
 			musicFile = new Player(inputStream);
 			musicFile.play();
 		} catch (JavaLayerException | FileNotFoundException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Arquivos não encontrados");
+			
 		}
 	}
 

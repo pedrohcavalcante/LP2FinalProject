@@ -61,8 +61,8 @@ public class Login extends JFrame {
 		
 		
 		//COLOQUEI USUARIO PARA NAO TER QUE FICAR DIGITANDO HORRORES (REMOVER DEPOIS)
-		inputUsuario.setText("jonathan");
-		inputSenha.setText("pedro");
+		//inputUsuario.setText("jonathan");
+		//inputSenha.setText("pedro");
 		
 		
 		
