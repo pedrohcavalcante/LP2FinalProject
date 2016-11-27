@@ -80,8 +80,6 @@ public class TelaPrincipal extends JFrame {
 	private JMenuItem gerenciarPlaylist = new JMenuItem("Gerenciar playlist");
 	private JMenuItem adicionarUsuario = new JMenuItem("Cadastrar usuarios");
 	private JMenuItem removerUsuario = new JMenuItem("Remover usuario");
-
-	boolean exists = false;
 	
 	// Botoes
 	private JButton adicionarMusica = new JButton("Adicionar musica");
@@ -102,8 +100,11 @@ public class TelaPrincipal extends JFrame {
 	
 	// Textfields
 	private JTextArea textMusicas = new JTextArea();
+	private JScrollPane paneMusicas = new JScrollPane(textMusicas);
 	private JTextArea textAtualPlaylist = new JTextArea();
+	private JScrollPane paneAtualPlaylist = new JScrollPane(textAtualPlaylist);
 	private JTextArea textPlaylists = new JTextArea();
+	private JScrollPane panePlaylists = new JScrollPane(textPlaylists);
 	/**
 	 * Classe que inicia a instancia da janela principal de execucao
 	 * @throws ClassNotFoundException tratamento de exceção
@@ -182,57 +183,104 @@ public class TelaPrincipal extends JFrame {
 		labelVip.setBounds(LARGURA - 160, 40, 140, 30);
 		
 		// Adicionando TextAreas
-		add(textMusicas);
-		add(textAtualPlaylist);
-		add(textPlaylists);
+		add(paneMusicas);
+		add(paneAtualPlaylist);
+		add(panePlaylists);
 		// Setando posicao dos textfields
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
-		textMusicas.setBounds(160, 50, 200, 350);
-		textMusicas.setBorder(border);
+		paneMusicas.setBounds(160, 50, 200, 350);
+		paneMusicas.setBorder(border);
+		paneMusicas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		paneMusicas.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textMusicas.setEditable(false);
-		textAtualPlaylist.setBounds(370, 50, 200, 350);
-		textAtualPlaylist.setBorder(border);
+		paneAtualPlaylist.setBounds(370, 50, 200, 350);
+		paneAtualPlaylist.setBorder(border);
+		paneAtualPlaylist.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		paneAtualPlaylist.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textAtualPlaylist.setEditable(false);
-		textPlaylists.setBounds(LARGURA - 160, 200, 140, 200);
-		textPlaylists.setBorder(border);
+		panePlaylists.setBounds(LARGURA - 160, 200, 140, 200);
+		panePlaylists.setBorder(border);
+		panePlaylists.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		panePlaylists.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textPlaylists.setEditable(false);
 		
 		// Login inicial
 		login = new Login(usuarios, labelUsuario, labelVip, this);
 		
 		// Eventos
-		/**
-		 * Metodo que exibe a janela para adicionar musica
-		 */
+		adicionarPasta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				fileChooser.showSaveDialog(null);
+				
+				File pasta = new File(fileChooser.getSelectedFile().getAbsolutePath());
+				File[] arrayFiles = pasta.listFiles();
+				
+				// Itera por todos os arquivos da pasta selecionada
+				for (int i = 0; i < arrayFiles.length; i++) {
+					// Previne erro de tentar ler arquivos com nomes menores que 4 unidades
+					if (arrayFiles[i].getName().length() > 4) {
+						// Checa se eh mp3
+						if (arrayFiles[i].getName().substring(arrayFiles[i].getName().length() - 4).equals(".mp3")) {
+							System.out.println("Arquivo: " + arrayFiles[i].getName());
+							
+							// Checa se o nome ou caminho tem o caractere "&"
+							if (arrayFiles[i].getName().split("&").length > 1 || arrayFiles[i].getAbsolutePath().split("&").length > 1) {
+								JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
+							}
+							else {
+								// Checa se a musica eh repetida
+								Boolean ehRepetida = false;
+								for (int j = 0; j < musicas.size(); j++) {
+									// Eh repetida
+									if (musicas.get(j).getNome().equals(arrayFiles[i].getName())) {
+										ehRepetida = true;
+										break;
+									}						
+								}
+								if (ehRepetida == false) {
+									musicas.add(new Musica(arrayFiles[i].getName(), arrayFiles[i].getAbsolutePath()));
+
+									textMusicas.append("> " + arrayFiles[i].getName() + "\n");
+								}
+							}
+						}
+					}
+				}
+			}
+		});
 		adicionarMusica.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jfile.showOpenDialog(parent);
-				
+
 				try{
 					System.out.println("Caminho: " + jfile.getSelectedFile().getAbsolutePath());
 					System.out.println("Nome do arquivo: " + jfile.getSelectedFile().getName());
-				}catch (NullPointerException exx){
-					
 				}
-				
+				catch (NullPointerException exx){
+
+				}
 				
 				// Checa se o arquivo eh .mp3
 				try{
 					if (!jfile.getSelectedFile().getName().substring(jfile.getSelectedFile().getName().length() - 4).equals(".mp3")) {
-				
-					JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
-				}
-				else {
-					// Checa a se o nome ou caminho tem o caractere "&"
+
+						JOptionPane.showMessageDialog(null, "O arquivo selecionando nao eh um .mp3.");
+					}
+					else {
+						// Checa a se o nome ou caminho tem o caractere "&"
 						if (jfile.getSelectedFile().getName().split("&").length > 1 || jfile.getSelectedFile().getAbsolutePath().split("&").length > 1) {
-							JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Por favor retire-o para que a musica possoa ser adicionada a biblioteca.");
+							JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
 						}
 						else {
 							// Checa se a musica eh repetida
 							Boolean ehRepetida = false;
-							
+
 							for (int i = 0; i < musicas.size(); i++) {
 								// Eh repetida
 								if (musicas.get(i).getNome().equals(jfile.getSelectedFile().getName())) {
@@ -242,19 +290,17 @@ public class TelaPrincipal extends JFrame {
 							}
 							if (ehRepetida == false) {
 								musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
-								
+
 								textMusicas.append("> " + jfile.getSelectedFile().getName() + "\n");
 							}
 						}	
 					}
-				}catch(NullPointerException npe){
-					JOptionPane.showMessageDialog(null, "Nenhuma mÃºsica informada");
+				}
+				catch(NullPointerException npe){
+					JOptionPane.showMessageDialog(null, "Nenhuma musica informada");
 				}
 			}
 		});
-		/**
-		 * Metodo que exibe a janela para remover musica
-		 */
 		removerMusica.addActionListener(new ActionListener() {
 			
 			@Override
@@ -285,30 +331,7 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
-		/**
-		 * Método para exibir a janela que adiciona uma pasta
-		 */
-		adicionarPasta.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				final JFileChooser chooser = new JFileChooser();
-				int status = chooser.showOpenDialog(parent);
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-				File diretorio = chooser.getCurrentDirectory();
-				// TODO Auto-generated method stub
-				File afile[] = diretorio.listFiles();
-				int i = 0;
-				for (int j = afile.length; i < j; i++) {
-					File arquivos = afile[i];
-					System.out.println(arquivos.getName());
-				}	
 		
-			}
-		});
-		/**
-		 * Metodo para exibir a janela que adiciona uma playlist
-		 */
 		adicionarPlaylist.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -331,9 +354,6 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
-		/**
-		 * Metodo para remover uma playlist
-		 */
 		removerPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
@@ -370,9 +390,6 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
-		/**
-		 * Metodo de adicionar/remover musica de uma playlist
-		 */
 		gerenciarPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
@@ -381,51 +398,36 @@ public class TelaPrincipal extends JFrame {
 				gerenciamentoPlaylist = new GerenciamentoPlaylist(playlists, musicas, login.getUsuarioAtual());
 			}
 		});
-		/**
-		 * Metodo para adicionar uma playlist em reproducao
-		 */
 		selecionarPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				int aux;
-				ArrayList<Playlist> print = new ArrayList<Playlist>();
-				String playlistSelected = JOptionPane.showInputDialog("Digite o nome da Playlist");
-				for (int i = 0; i < playlists.size();i++){
-					if (playlistSelected.equals(playlists.get(i).getNome())){
-						print = playlists;
-						exists = true;
-						aux = i;
-						musicas = (playlists.get(i).getMusicas());
+				
+				Boolean encontrou = false;
+				
+				// Recebe input da playlist a ser selecionada
+				String playlistSelecionada = JOptionPane.showInputDialog("Digite o nome da Playlist");
+				
+				// Procura a playlist inputada dentre as existentes no sistema
+				for (int i = 0; i < playlists.size(); i++){
+					if (playlistSelecionada.equals(playlists.get(i).getNome())){
+						
+						// Imprime todas as musicas da playlist no JTextArea de playlist
+						for (Musica musica : playlists.get(i).getMusicas()) {
+							textAtualPlaylist.append("> " + musica.getNome() + "\n");
+						}
+						
+						encontrou = true;
 						break;
-					}else{
-						exists = false;
-					}
-					
+					}					
 				}
-				int i = 0;
-				for (Playlist p : print){
-					
-					textAtualPlaylist.append("> " + p.getMusicas().get(i).getNome());
-					i++;
+				
+				if (encontrou == false) {
+					JOptionPane.showMessageDialog(null, "A playlist " + playlistSelecionada + " nao foi encontrada na biblioteca.");
 				}
 			}
 		});
-	/*	proximaMusica.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				play.setEnabled(true);
-				musicPlayer.close();
-				musicPlayer.setContador(musicPlayer.getContador()+1);
-				musicPlayer.start();
-			}
-		});*/
-		/**
-		 * Metodo que inicia uma musica
-		 */
+		
 		play.addActionListener(new ActionListener() {
 			
 			private boolean playing;
@@ -441,14 +443,10 @@ public class TelaPrincipal extends JFrame {
 				musicPlayer.start();
 			}
 		});			
-		/**
-		 * Metodo que para a execucao de uma musica
-		 */
 		stop.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				musicPlayer.close();
 				play.setEnabled(true);
 				stop.setEnabled(false);
@@ -500,7 +498,6 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 
-
 		// Fechamento de janela personalizado
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
@@ -510,9 +507,9 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 	}
-		/**
-		 * Metodo que mantem os dados dos usuarios no sistema
-		 */
+	/**
+	 * Metodo que mantem os dados dos usuarios no sistema
+	 */
 	public void persistirDados() {
 		// Persiste dados dos usuarios
 		BufferedWriter writerUser = null;
