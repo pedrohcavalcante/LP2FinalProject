@@ -55,6 +55,7 @@ public class TelaPrincipal extends JFrame {
 	private ArrayList<Musica> musicas = new ArrayList<Musica>();
 	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private ArrayList<String> diretorios = new ArrayList<String>();
 	
 	// Janela de cadastro de usuario
 	private CadastroUsuario cadastroUsuario;
@@ -107,10 +108,10 @@ public class TelaPrincipal extends JFrame {
 	private JScrollPane panePlaylists = new JScrollPane(textPlaylists);
 	/**
 	 * Classe que inicia a instancia da janela principal de execucao
-	 * @throws ClassNotFoundException tratamento de exce��o
-	 * @throws InstantiationException tratamento de exce��o
-	 * @throws IllegalAccessException tratamento de exce��o
-	 * @throws UnsupportedLookAndFeelException tratamento de exce��o
+	 * @throws ClassNotFoundException tratamento de exceção
+	 * @throws InstantiationException tratamento de exceção
+	 * @throws IllegalAccessException tratamento de exceção
+	 * @throws UnsupportedLookAndFeelException tratamento de exceção
 	 */
 	public TelaPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
@@ -217,17 +218,21 @@ public class TelaPrincipal extends JFrame {
 				fileChooser.showSaveDialog(null);
 				File pasta = null;
 				File[] arrayFiles = null;
+				
+				// Adiciona a pasta ao Arraylist de diretorios do sistema
+				diretorios.add(fileChooser.getSelectedFile().getAbsolutePath());
+				
 				try{
 					pasta = new File(fileChooser.getSelectedFile().getAbsolutePath());
 					arrayFiles = pasta.listFiles();
+					
 					// Itera por todos os arquivos da pasta selecionada
 					for (int i = 0; i < arrayFiles.length; i++) {
 						// Previne erro de tentar ler arquivos com nomes menores que 4 unidades
 						if (arrayFiles[i].getName().length() > 4) {
 							// Checa se eh mp3
 							if (arrayFiles[i].getName().substring(arrayFiles[i].getName().length() - 4).equals(".mp3")) {
-								System.out.println("Arquivo: " + arrayFiles[i].getName());
-								
+		
 								// Checa se o nome ou caminho tem o caractere "&"
 								if (arrayFiles[i].getName().split("&").length > 1 || arrayFiles[i].getAbsolutePath().split("&").length > 1) {
 									JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
@@ -243,18 +248,18 @@ public class TelaPrincipal extends JFrame {
 										}						
 									}
 									if (ehRepetida == false) {
-										musicas.add(new Musica(arrayFiles[i].getName(), arrayFiles[i].getAbsolutePath()));
+										musicas.add(new Musica(arrayFiles[i].getName().substring(0, arrayFiles[i].getName().length() - 4), arrayFiles[i].getAbsolutePath()));
 	
-										textMusicas.append("> " + arrayFiles[i].getName() + "\n");
+										textMusicas.append("> " + arrayFiles[i].getName().substring(0, arrayFiles[i].getName().length() - 4) + "\n");
 									}
 								}
 							}
 						}
 					}
 				}
-			catch (NullPointerException npx){
+				catch (NullPointerException npx){
 				
-			}
+				}
 			}
 		});
 		adicionarMusica.addActionListener(new ActionListener() {
@@ -262,14 +267,6 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jfile.showOpenDialog(parent);
-
-				try{
-					System.out.println("Caminho: " + jfile.getSelectedFile().getAbsolutePath());
-					System.out.println("Nome do arquivo: " + jfile.getSelectedFile().getName());
-				}
-				catch (NullPointerException exx){
-
-				}
 				
 				// Checa se o arquivo eh .mp3
 				try{
@@ -294,9 +291,9 @@ public class TelaPrincipal extends JFrame {
 								}						
 							}
 							if (ehRepetida == false) {
-								musicas.add(new Musica(jfile.getSelectedFile().getName(), jfile.getSelectedFile().getAbsolutePath()));
+								musicas.add(new Musica(jfile.getSelectedFile().getName().substring(0, jfile.getSelectedFile().getName().length() - 4), jfile.getSelectedFile().getAbsolutePath()));
 
-								textMusicas.append("> " + jfile.getSelectedFile().getName() + "\n");
+								textMusicas.append("> " + jfile.getSelectedFile().getName().substring(0, jfile.getSelectedFile().getName().length() - 4) + "\n");
 							}
 						}	
 					}
@@ -334,7 +331,7 @@ public class TelaPrincipal extends JFrame {
 						JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
 					}
 				}else{
-					JOptionPane.showMessageDialog(null, "Nenhuma m�sica informada");
+					JOptionPane.showMessageDialog(null, "Nenhuma música informada");
 				}
 				
 				
@@ -350,7 +347,7 @@ public class TelaPrincipal extends JFrame {
 					// Recebe o nome da nova playlist do usuario
 					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
 					
-					// Cria e adiciona uma nova playlist ï¿½ lista
+					// Cria e adiciona uma nova playlist Ã¯Â¿Â½ lista
 					if (nomeNovaPlaylist != null){
 						playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
 						
@@ -619,6 +616,31 @@ public class TelaPrincipal extends JFrame {
 			}
 		}
 		
+		// Persiste dados dos diretorios
+		BufferedWriter writerUser4 = null;
+		try {
+			File dadosDiretorios = new File("data/dadosDiretorios.txt");
+
+			writerUser4 = new BufferedWriter(new FileWriter(dadosDiretorios));
+
+			// Escrita no arquivo
+			for(String diretorio : diretorios) {
+				writerUser4.write(diretorio);
+				writerUser4.newLine();
+			}
+
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				writerUser4.close();
+			}
+			catch (Exception e) {
+			}
+		}
+
 	}
 	/**
 	 * Metodo que carrega os dados dos usuarios no sistema
@@ -751,6 +773,68 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		}
-	}
+		
+		// Carrega dados dos diretorios
+		BufferedReader br4 = null;
 
+		try {
+			String sCurrentLine;
+
+			br4 = new BufferedReader(new FileReader("data/dadosDiretorios.txt"));
+
+			while ((sCurrentLine = br4.readLine()) != null) {
+
+				// mensagem para debugar
+				System.out.println("Diretorio <" + sCurrentLine + "> carregado.");
+				
+				File pasta = new File(sCurrentLine);
+				
+				// Adiciona a pasta ao Arraylist de diretorios do sistema
+				diretorios.add(sCurrentLine);
+				// Array de files dentro da pasta
+				File[] arrayFiles2 = pasta.listFiles();
+				
+				// Itera por todos os arquivos da pasta selecionada
+				for (int i = 0; i < arrayFiles2.length; i++) {
+					// Previne erro de tentar ler arquivos com nomes menores que 4 unidades
+					if (arrayFiles2[i].getName().length() > 4) {
+						// Checa se eh mp3
+						if (arrayFiles2[i].getName().substring(arrayFiles2[i].getName().length() - 4).equals(".mp3")) {
+							// Checa se o nome ou caminho tem o caractere "&"
+							if (arrayFiles2[i].getName().split("&").length > 1 || arrayFiles2[i].getAbsolutePath().split("&").length > 1) {
+								JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
+							}
+							else {
+								// Checa se a musica eh repetida
+								Boolean ehRepetida = false;
+								for (int j = 0; j < musicas.size(); j++) {
+									// Eh repetida
+									if (musicas.get(j).getNome().equals(arrayFiles2[i].getName())) {
+										ehRepetida = true;
+										break;
+									}						
+								}
+								if (ehRepetida == false) {
+									musicas.add(new Musica(arrayFiles2[i].getName().substring(0, arrayFiles2[i].getName().length() - 4), arrayFiles2[i].getAbsolutePath()));
+
+									textMusicas.append("> " + arrayFiles2[i].getName().substring(0, arrayFiles2[i].getName().length() - 4) + "\n");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (br4 != null)br4.close();
+			}
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}		
+	}
 }
