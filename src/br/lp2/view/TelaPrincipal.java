@@ -334,7 +334,7 @@ public class TelaPrincipal extends JFrame {
 						JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
 					}
 				}else{
-					
+					JOptionPane.showMessageDialog(null, "Nenhuma música informada");
 				}
 				
 				
@@ -438,7 +438,7 @@ public class TelaPrincipal extends JFrame {
 						JOptionPane.showMessageDialog(null, "A playlist " + playlistSelecionada + " nao foi encontrada na biblioteca.");
 					}
 				}else{
-					
+					JOptionPane.showMessageDialog(null, "Nenhuma playlist informda.");
 				}
 			}
 				
