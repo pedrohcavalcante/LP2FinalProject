@@ -16,9 +16,9 @@ import br.lp2.classes.Musica;
 import br.lp2.classes.Playlist;
 import br.lp2.classes.Usuario;
 /**
- * 
- * @author Jonathan Rocha, Pedro Henrique
  * Classe que faz o gerenciamento e instanciacao de uma playlist
+ * @author Jonathan Rocha, Pedro Henrique
+ * 
  */
 @SuppressWarnings("serial")
 public class GerenciamentoPlaylist extends JFrame {
@@ -43,7 +43,12 @@ public class GerenciamentoPlaylist extends JFrame {
 	// Botoes
 	private JButton adicionarMusica = new JButton("Adicionar");
 	private JButton removerMusica = new JButton("Remover");
-	
+	/**
+	 * Construtor da classe GerenciamentoPlaylist
+	 * @param listaPlaylists tipo array de playlist
+	 * @param listaMusicas tipo array de musica
+	 * @param usuarioAtual obj tipo usuario
+	 */
 	public GerenciamentoPlaylist(ArrayList<Playlist> listaPlaylists, 
 								 ArrayList<Musica> listaMusicas, 
 								 Usuario usuarioAtual) {

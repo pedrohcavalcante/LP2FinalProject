@@ -18,9 +18,9 @@ import javax.swing.JTextField;
 
 import br.lp2.classes.Usuario;
 /**
- * 
+ * Classe que abre a janela cadastro de usuario
  * @author Jonathan Rocha, Pedro Henrique
- * Classe que abre a janela cadastro de usuario 
+ *  
  */
 @SuppressWarnings("serial")
 public class CadastroUsuario extends JFrame {
@@ -43,7 +43,10 @@ public class CadastroUsuario extends JFrame {
 	// Botoes
 	private JButton cadastrar = new JButton("Cadastrar");
 	private JButton fechar = new JButton("Fechar");
-	
+	/**
+	 * Construtor da classe CadastroUsuario
+	 * @param listaUsuarios tipo array de usuarios
+	 */
 	public CadastroUsuario(ArrayList<Usuario> listaUsuarios) {
 		// Configuracoes padrao
 		setTitle("Cadastro");

@@ -11,7 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.lp2.classes.Usuario;
-
+/**
+ * Classe login
+ * @author Jonathan Rocha, Pedro Henrique
+ *
+ */
 @SuppressWarnings("serial")
 public class Login extends JFrame {
 	
@@ -34,7 +38,13 @@ public class Login extends JFrame {
 	// Botoes
 	private JButton logar = new JButton("Logar");
 	private JButton cancelar = new JButton("Cancelar");
-	
+	/**
+	 * Metodo construtor da classe Login
+	 * @param listaUsuarios tipo array de usuario
+	 * @param usuario obj JLabel
+	 * @param vip obj JLabel
+	 * @param tela obj TelaPrincipal
+	 */
 	public Login(ArrayList<Usuario> listaUsuarios, JLabel usuario, JLabel vip, TelaPrincipal tela) {
 		// Configuracoes padrao
 		setTitle("Login");
@@ -149,9 +159,17 @@ public class Login extends JFrame {
 	}
 	
 	// Metodos
+	/**
+	 * Metodo que retorna o usuario atual
+	 * @return usuarioAtual
+	 */
 	public Usuario getUsuarioAtual() {
 		return usuarioAtual;
 	}
+	/**
+	 * Metodo que atualiza o usuario atual
+	 * @param usuarioAtual obj tipo usuario
+	 */
 	public void setUsuarioAtual(Usuario usuarioAtual) {
 		this.usuarioAtual = usuarioAtual;
 	}

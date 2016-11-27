@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 
 import br.lp2.classes.Musica;
 /**
- * 
- * @author Jonathan Rocha, Pedro Henrique
  * Classe que faz a lista de musicas aparecer no sistema
+ * @author Jonathan Rocha, Pedro Henrique
+ * 
  */
 @SuppressWarnings("serial")
 public class ListaMusicas extends JFrame {
@@ -25,7 +25,10 @@ public class ListaMusicas extends JFrame {
 	
 	// ArrayList das Labels para as musicas
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
-	
+	/**
+	 * Metodo construtor da classe ListaMusicas
+	 * @param listaMusicas tipo array de musica
+	 */
 	public ListaMusicas(ArrayList<Musica> listaMusicas) {
 		
 		// Calcula ALTURA com base no tamanho do ArrayList de musicas

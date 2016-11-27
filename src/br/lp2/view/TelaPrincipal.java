@@ -36,9 +36,9 @@ import br.lp2.classes.Playlist;
 import br.lp2.classes.Usuario;
 import br.lp2.main.*;
 /**
- * 
- * @author Jonathan Rocha, Pedro Henrique
  * Classe que cria a tela principal do projeto
+ * @author Jonathan Rocha, Pedro Henrique
+ * 
  */
 @SuppressWarnings({ "serial", "unused" })
 public class TelaPrincipal extends JFrame {
@@ -104,7 +104,13 @@ public class TelaPrincipal extends JFrame {
 	private JTextArea textMusicas = new JTextArea();
 	private JTextArea textAtualPlaylist = new JTextArea();
 	private JTextArea textPlaylists = new JTextArea();
-	
+	/**
+	 * Classe que inicia a instancia da janela principal de execucao
+	 * @throws ClassNotFoundException tratamento de exceção
+	 * @throws InstantiationException tratamento de exceção
+	 * @throws IllegalAccessException tratamento de exceção
+	 * @throws UnsupportedLookAndFeelException tratamento de exceção
+	 */
 	public TelaPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
 		// variavel de insercao de musicas
@@ -195,6 +201,9 @@ public class TelaPrincipal extends JFrame {
 		login = new Login(usuarios, labelUsuario, labelVip, this);
 		
 		// Eventos
+		/**
+		 * Metodo que exibe a janela para adicionar musica
+		 */
 		adicionarMusica.addActionListener(new ActionListener() {
 			
 			@Override
@@ -243,6 +252,9 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
+		/**
+		 * Metodo que exibe a janela para remover musica
+		 */
 		removerMusica.addActionListener(new ActionListener() {
 			
 			@Override
@@ -273,7 +285,9 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
-		
+		/**
+		 * Método para exibir a janela que adiciona uma pasta
+		 */
 		adicionarPasta.addActionListener(new ActionListener() {
 			
 			@Override
@@ -292,7 +306,9 @@ public class TelaPrincipal extends JFrame {
 		
 			}
 		});
-		
+		/**
+		 * Metodo para exibir a janela que adiciona uma playlist
+		 */
 		adicionarPlaylist.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -315,6 +331,9 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
+		/**
+		 * Metodo para remover uma playlist
+		 */
 		removerPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
@@ -351,6 +370,9 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
+		/**
+		 * Metodo de adicionar/remover musica de uma playlist
+		 */
 		gerenciarPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
@@ -359,7 +381,9 @@ public class TelaPrincipal extends JFrame {
 				gerenciamentoPlaylist = new GerenciamentoPlaylist(playlists, musicas, login.getUsuarioAtual());
 			}
 		});
-		
+		/**
+		 * Metodo para adicionar uma playlist em reproducao
+		 */
 		selecionarPlaylist.addActionListener(new ActionListener() {
 			
 			@Override
@@ -390,6 +414,9 @@ public class TelaPrincipal extends JFrame {
 				musicPlayer.start();
 			}
 		});*/
+		/**
+		 * Metodo que inicia uma musica
+		 */
 		play.addActionListener(new ActionListener() {
 			
 			private boolean playing;
@@ -405,6 +432,9 @@ public class TelaPrincipal extends JFrame {
 				musicPlayer.start();
 			}
 		});			
+		/**
+		 * Metodo que para a execucao de uma musica
+		 */
 		stop.addActionListener(new ActionListener() {
 			
 			@Override
@@ -471,7 +501,9 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 	}
-		
+		/**
+		 * Metodo que mantem os dados dos usuarios no sistema
+		 */
 	public void persistirDados() {
 		// Persiste dados dos usuarios
 		BufferedWriter writerUser = null;
@@ -566,7 +598,9 @@ public class TelaPrincipal extends JFrame {
 		}
 		
 	}
-
+	/**
+	 * Metodo que carrega os dados dos usuarios no sistema
+	 */
 	public void carregarDados() {
 		// Carrega dados dos usuarios
 		BufferedReader br = null;
