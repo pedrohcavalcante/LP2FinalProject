@@ -53,6 +53,7 @@ public class TelaPrincipal extends JFrame {
 	
 	// Atributos responsaveis por armazenas os dados do player
 	private ArrayList<Musica> musicas = new ArrayList<Musica>();
+	private ArrayList<Musica> playlistAtual = new ArrayList<Musica>();
 	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	private ArrayList<String> diretorios = new ArrayList<String>();
@@ -124,8 +125,14 @@ public class TelaPrincipal extends JFrame {
 		// Metodo desponsavel por carregar os dados dos usuarios
 		carregarDados();
 		
+		// Instancia janela de cadastro de usuario
 		cadastroUsuario = new CadastroUsuario(usuarios);
+		
+		// Instancia classe tocados de musica
 		musicPlayer = new MusicPlayer(musicas, 0);
+		
+		// Seleciona o array padrao como array de musicas a ser tocado
+		playlistAtual = musicas;
 		
 		// Configuracoes padrao
 		setTitle("Player de musica");
@@ -352,7 +359,7 @@ public class TelaPrincipal extends JFrame {
 					// Recebe o nome da nova playlist do usuario
 					String nomeNovaPlaylist = JOptionPane.showInputDialog(null, "Como deseja chamar a playlist?");
 					
-					// Cria e adiciona uma nova playlist Ã¯Â¿Â½ lista
+					// Cria e adiciona uma nova playlist a lista
 					if (nomeNovaPlaylist != null){
 						playlists.add(new Playlist(nomeNovaPlaylist, login.getUsuarioAtual().getUser()));
 						
@@ -431,6 +438,8 @@ public class TelaPrincipal extends JFrame {
 								textAtualPlaylist.append("> " + musica.getNome() + "\n");
 							}
 							
+							playlistAtual = playlists.get(i).getMusicas();
+							
 							encontrou = true;
 							break;
 						}					
@@ -451,10 +460,10 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (musicPlayer.getIndex() == 0) {
-					musicPlayer = new MusicPlayer(musicas, 0);
+					musicPlayer = new MusicPlayer(playlistAtual, 0);
 				}
 				else {
-					musicPlayer = new MusicPlayer(musicas, musicPlayer.getIndex());
+					musicPlayer = new MusicPlayer(playlistAtual, musicPlayer.getIndex());
 				}
 				
 				stop.setEnabled(true);
@@ -479,7 +488,7 @@ public class TelaPrincipal extends JFrame {
 				
 				musicPlayer.close();
 
-				musicPlayer = new MusicPlayer(musicas, musicPlayer.getIndex() + 1);
+				musicPlayer = new MusicPlayer(playlistAtual, musicPlayer.getIndex() + 1);
 				
 				musicPlayer.start();
 				
@@ -492,7 +501,7 @@ public class TelaPrincipal extends JFrame {
 
 				musicPlayer.close();
 
-				musicPlayer = new MusicPlayer(musicas, musicPlayer.getIndex() - 1);
+				musicPlayer = new MusicPlayer(playlistAtual, musicPlayer.getIndex() - 1);
 				
 				musicPlayer.start();
 				
@@ -768,10 +777,9 @@ public class TelaPrincipal extends JFrame {
 				// Mensagem para debugar
 				System.out.println("Playlist <" + nomePlaylist + "> de dono <" + donoPlaylist + "> carregada.");
 				
-				// Escreve as playlists no Textarea de playlists
-				textPlaylists.append("> " + nomePlaylist + "\n");
-				
 				playlists.add(novaPlaylist);
+				
+				textPlaylists.append("> " + novaPlaylist.getNome() + "\n");
 				
 				while ((sCurrentLine3 = br3.readLine()) != null) {
 					String musica = sCurrentLine3;
@@ -791,7 +799,6 @@ public class TelaPrincipal extends JFrame {
 					if (encontrou == false) {
 						JOptionPane.showMessageDialog(null, "Erro ao carreagar dados da playlist " + nomePlaylist + ". A musica " + musica + " nao esta na biblioteca e nao pode ser adicionada a playlist.");
 					}
-
 				}
 			}
 			catch (IOException e) {
