@@ -390,17 +390,25 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				int aux;
-				
+				ArrayList<Playlist> print = new ArrayList<Playlist>();
 				String playlistSelected = JOptionPane.showInputDialog("Digite o nome da Playlist");
 				for (int i = 0; i < playlists.size();i++){
 					if (playlistSelected.equals(playlists.get(i).getNome())){
+						print = playlists;
 						exists = true;
 						aux = i;
 						musicas = (playlists.get(i).getMusicas());
-						textAtualPlaylist.append("> " + playlists.get(i).getMusicas().get(i).getNome());
+						break;
 					}else{
 						exists = false;
 					}
+					
+				}
+				int i = 0;
+				for (Playlist p : print){
+					
+					textAtualPlaylist.append("> " + p.getMusicas().get(i).getNome());
+					i++;
 				}
 			}
 		});
