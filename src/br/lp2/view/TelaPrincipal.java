@@ -417,26 +417,31 @@ public class TelaPrincipal extends JFrame {
 				
 				// Recebe input da playlist a ser selecionada
 				String playlistSelecionada = JOptionPane.showInputDialog("Digite o nome da Playlist");
-				
+
 				// Procura a playlist inputada dentre as existentes no sistema
-				for (int i = 0; i < playlists.size(); i++){
-					if (playlistSelecionada.equals(playlists.get(i).getNome())){
-						
-						// Imprime todas as musicas da playlist no JTextArea de playlist
-						for (Musica musica : playlists.get(i).getMusicas()) {
+				if (playlistSelecionada != null){
+					for (int i = 0; i < playlists.size(); i++){
+						if (playlistSelecionada.equals(playlists.get(i).getNome())){
 							
-							textAtualPlaylist.append("> " + musica.getNome() + "\n");
-						}
-						
-						encontrou = true;
-						break;
-					}					
-				}
-				
-				if (encontrou == false) {
-					JOptionPane.showMessageDialog(null, "A playlist " + playlistSelecionada + " nao foi encontrada na biblioteca.");
+							// Imprime todas as musicas da playlist no JTextArea de playlist
+							for (Musica musica : playlists.get(i).getMusicas()) {
+								
+								textAtualPlaylist.append("> " + musica.getNome() + "\n");
+							}
+							
+							encontrou = true;
+							break;
+						}					
+					}
+					
+					if (encontrou == false) {
+						JOptionPane.showMessageDialog(null, "A playlist " + playlistSelecionada + " nao foi encontrada na biblioteca.");
+					}
+				}else{
+					
 				}
 			}
+				
 		});
 		
 		play.addActionListener(new ActionListener() {
