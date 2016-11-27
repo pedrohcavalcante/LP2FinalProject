@@ -215,41 +215,46 @@ public class TelaPrincipal extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.showSaveDialog(null);
-				
-				File pasta = new File(fileChooser.getSelectedFile().getAbsolutePath());
-				File[] arrayFiles = pasta.listFiles();
-				
-				// Itera por todos os arquivos da pasta selecionada
-				for (int i = 0; i < arrayFiles.length; i++) {
-					// Previne erro de tentar ler arquivos com nomes menores que 4 unidades
-					if (arrayFiles[i].getName().length() > 4) {
-						// Checa se eh mp3
-						if (arrayFiles[i].getName().substring(arrayFiles[i].getName().length() - 4).equals(".mp3")) {
-							System.out.println("Arquivo: " + arrayFiles[i].getName());
-							
-							// Checa se o nome ou caminho tem o caractere "&"
-							if (arrayFiles[i].getName().split("&").length > 1 || arrayFiles[i].getAbsolutePath().split("&").length > 1) {
-								JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
-							}
-							else {
-								// Checa se a musica eh repetida
-								Boolean ehRepetida = false;
-								for (int j = 0; j < musicas.size(); j++) {
-									// Eh repetida
-									if (musicas.get(j).getNome().equals(arrayFiles[i].getName())) {
-										ehRepetida = true;
-										break;
-									}						
+				File pasta = null;
+				File[] arrayFiles = null;
+				try{
+					pasta = new File(fileChooser.getSelectedFile().getAbsolutePath());
+					arrayFiles = pasta.listFiles();
+					// Itera por todos os arquivos da pasta selecionada
+					for (int i = 0; i < arrayFiles.length; i++) {
+						// Previne erro de tentar ler arquivos com nomes menores que 4 unidades
+						if (arrayFiles[i].getName().length() > 4) {
+							// Checa se eh mp3
+							if (arrayFiles[i].getName().substring(arrayFiles[i].getName().length() - 4).equals(".mp3")) {
+								System.out.println("Arquivo: " + arrayFiles[i].getName());
+								
+								// Checa se o nome ou caminho tem o caractere "&"
+								if (arrayFiles[i].getName().split("&").length > 1 || arrayFiles[i].getAbsolutePath().split("&").length > 1) {
+									JOptionPane.showMessageDialog(null, "Existe um '&' no nome do arquivo da musica ou no caminho deste. Retire-o para que a musica possoa ser adicionada a biblioteca.");
 								}
-								if (ehRepetida == false) {
-									musicas.add(new Musica(arrayFiles[i].getName(), arrayFiles[i].getAbsolutePath()));
-
-									textMusicas.append("> " + arrayFiles[i].getName() + "\n");
+								else {
+									// Checa se a musica eh repetida
+									Boolean ehRepetida = false;
+									for (int j = 0; j < musicas.size(); j++) {
+										// Eh repetida
+										if (musicas.get(j).getNome().equals(arrayFiles[i].getName())) {
+											ehRepetida = true;
+											break;
+										}						
+									}
+									if (ehRepetida == false) {
+										musicas.add(new Musica(arrayFiles[i].getName(), arrayFiles[i].getAbsolutePath()));
+	
+										textMusicas.append("> " + arrayFiles[i].getName() + "\n");
+									}
 								}
 							}
 						}
 					}
 				}
+			catch (NullPointerException npx){
+				
+			}
 			}
 		});
 		adicionarMusica.addActionListener(new ActionListener() {
