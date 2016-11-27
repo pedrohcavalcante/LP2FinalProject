@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 import br.lp2.classes.Musica;
 import br.lp2.classes.Playlist;
@@ -29,6 +28,7 @@ public class GerenciamentoPlaylist extends JFrame {
 	
 	// Array de strings pro ComboBox
 	String[] arrayNomePlaylist;
+	String[] arrayNomeMusica;
 	
 	// Labels
 	private JLabel labelPlaylist = new JLabel("Qual playlist deseja modificar?");
@@ -36,9 +36,7 @@ public class GerenciamentoPlaylist extends JFrame {
 	
 	// Combo box
 	private JComboBox<String> seletorPlaylist;
-	
-	// Text fields
-	private JTextField inputMusicas = new JTextField();
+	private JComboBox<String> seletorMusica;
 	
 	// Botoes
 	private JButton adicionarMusica = new JButton("Adicionar");
@@ -70,14 +68,21 @@ public class GerenciamentoPlaylist extends JFrame {
 			arrayNomePlaylist[i] = listaPlaylists.get(i).getNome();
 		}
 		
-		// Instancia o JComboBox
+		// Cria um arraylist com os nomes das musicas
+		arrayNomeMusica = new String[listaMusicas.size()];
+		for (int i = 0; i < listaMusicas.size(); i++) {
+			arrayNomeMusica[i] = listaMusicas.get(i).getNome();
+		}
+		
+		// Instancia os JComboBoxes
 		seletorPlaylist = new JComboBox<String>(arrayNomePlaylist);
+		seletorMusica = new JComboBox<String>(arrayNomeMusica);
 		
 		// Adiciona elementos no gridLayout
 		add(labelPlaylist);
 		add(seletorPlaylist);
 		add(labelMusica);
-		add(inputMusicas);
+		add(seletorMusica);
 		add(adicionarMusica);
 		add(removerMusica);
 		
@@ -86,25 +91,10 @@ public class GerenciamentoPlaylist extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Boolean encontrou = false;
-				
-				// Procura a musica inputada no ArrayList de musicas
-				for (int i = 0; i < listaMusicas.size(); i++) {
-					if (inputMusicas.getText().equals(listaMusicas.get(i).getNome())) {
-						// Adiciona a musica na playlist adequada
-						listaPlaylists.get(seletorPlaylist.getSelectedIndex()).adicionarMusica(listaMusicas.get(i));
-						encontrou = true;
-						break;
-					}
-				}
-				
-				if (encontrou == false) {
-					JOptionPane.showMessageDialog(null, "Esta musica nao esta na biblioteca");
-				}
-				else {
-					// Mensagem de "adicionou musica".
-					System.out.println("Adicionou =D");
-				}
+
+				listaPlaylists.get(seletorPlaylist.getSelectedIndex()).adicionarMusica(listaMusicas.get(seletorMusica.getSelectedIndex()));
+
+				System.out.println("Adicionou =D");
 			}
 		});
 		removerMusica.addActionListener(new ActionListener() {
@@ -117,7 +107,7 @@ public class GerenciamentoPlaylist extends JFrame {
 				try{
 					for (int i = 0; i < listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().size(); i++) {
 				
-						if (inputMusicas.getText().equals(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i).getNome())) {
+						if (seletorMusica.getSelectedItem().equals(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i).getNome())) {
 							// Remove a musica da playlist adequada
 							listaPlaylists.get(seletorPlaylist.getSelectedIndex()).removerMusica(listaPlaylists.get(seletorPlaylist.getSelectedIndex()).getMusicas().get(i));
 							encontrou = true;
@@ -139,12 +129,5 @@ public class GerenciamentoPlaylist extends JFrame {
 			}
 		});
 		
-		// Fechamento de janela personalizado
-//		addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent evt) {
-//				setVisible(false);
-//			}
-//		});
 	}
-	
 }

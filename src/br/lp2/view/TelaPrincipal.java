@@ -336,7 +336,7 @@ public class TelaPrincipal extends JFrame {
 						JOptionPane.showMessageDialog(null, "Nao foi possivel remover a musica " + musicaASerRemovida);
 					}
 				}else{
-					JOptionPane.showMessageDialog(null, "Nenhuma música informada");
+					JOptionPane.showMessageDialog(null, "Nenhuma musica informada");
 				}
 				
 				
@@ -780,9 +780,9 @@ public class TelaPrincipal extends JFrame {
 					
 					// Procura a musica inputada no ArrayList de musicas
 					for (int j = 0; j < musicas.size(); j++) {
-						if (musica.equals(musicas.get(i).getNome())) {
+						if (musica.equals(musicas.get(j).getNome())) {
 							// Adiciona a musica na playlist adequada
-							novaPlaylist.adicionarMusica(musicas.get(i));
+							novaPlaylist.adicionarMusica(musicas.get(j));
 							encontrou = true;
 							break;
 						}
