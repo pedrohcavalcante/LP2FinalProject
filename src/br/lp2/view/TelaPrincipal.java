@@ -221,7 +221,11 @@ public class TelaPrincipal extends JFrame {
 				File[] arrayFiles = null;
 				
 				// Adiciona a pasta ao Arraylist de diretorios do sistema
-				diretorios.add(fileChooser.getSelectedFile().getAbsolutePath());
+				try{
+					diretorios.add(fileChooser.getSelectedFile().getAbsolutePath());
+				} catch (NullPointerException npx){
+					JOptionPane.showMessageDialog(null, "Nenhuma pasta selecionada");
+				}
 				
 				try{
 					pasta = new File(fileChooser.getSelectedFile().getAbsolutePath());
