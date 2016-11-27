@@ -402,7 +402,7 @@ public class TelaPrincipal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				textAtualPlaylist.setText("");
 				Boolean encontrou = false;
 				
 				// Recebe input da playlist a ser selecionada
@@ -414,6 +414,7 @@ public class TelaPrincipal extends JFrame {
 						
 						// Imprime todas as musicas da playlist no JTextArea de playlist
 						for (Musica musica : playlists.get(i).getMusicas()) {
+							
 							textAtualPlaylist.append("> " + musica.getNome() + "\n");
 						}
 						
